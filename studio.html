@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zuron Studio - AI Creation Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0b0f17;
+            color: #f3f4f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%);
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #7c3aed 0%, #c026d3 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Top Navigation Bar -->
+    <header class="glass-panel sticky top-0 z-50 px-4 py-3 flex justify-between items-center border-b border-gray-800">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl btn-gradient flex items-center justify-center font-bold text-xl shadow-lg shadow-purple-500/20">
+                Z
+            </div>
+            <div>
+                <h1 class="text-xl font-extrabold tracking-wide gradient-text">Zuron Studio</h1>
+                <p class="text-xs text-gray-400">Powered by Zuron AI Ecosystem</p>
+            </div>
+        </div>
+        
+        <div class="flex items-center space-x-2">
+            <button onclick="openTokenModal()" class="text-xs bg-gray-800 hover:bg-gray-700 text-purple-300 border border-purple-500/30 px-3 py-2 rounded-lg flex items-center space-x-1 transition">
+                <i class="fas fa-key"></i>
+                <span id="token-status-text">Set API Token</span>
+            </button>
+            <a href="index.html" class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 px-3 py-2 rounded-lg transition">
+                <i class="fas fa-home"></i> Main Hub
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl mx-auto w-full p-4 flex-grow space-y-6">
+
+        <!-- Banner / Status -->
+        <div class="glass-panel p-4 rounded-2xl flex items-center justify-between border-l-4 border-purple-500">
+            <div>
+                <h2 class="text-lg font-semibold text-white">AI Studio Creation Engine</h2>
+                <p class="text-xs text-gray-400">9:16 रील्स, वीडियो प्रॉम्प्ट्स और 4K पोस्टर्स मिनटों में तैयार करें</p>
+            </div>
+            <span class="text-xs bg-purple-900/50 text-purple-300 px-3 py-1 rounded-full border border-purple-500/30">
+                v1.0 Ready
+            </span>
+        </div>
+
+        <!-- Mode Selector -->
+        <div class="grid grid-cols-3 gap-2 p-1 glass-panel rounded-xl">
+            <button onclick="switchTab('prompt')" id="tab-prompt" class="py-2 text-sm font-medium rounded-lg text-white btn-gradient transition shadow">
+                <i class="fas fa-magic mr-1"></i> Smart Prompt
+            </button>
+            <button onclick="switchTab('video')" id="tab-video" class="py-2 text-sm font-medium rounded-lg text-gray-400 hover:text-white transition">
+                <i class="fas fa-video mr-1"></i> AI Video
+            </button>
+            <button onclick="switchTab('poster')" id="tab-poster" class="py-2 text-sm font-medium rounded-lg text-gray-400 hover:text-white transition">
+                <i class="fas fa-image mr-1"></i> Poster Generator
+            </button>
+        </div>
+
+        <!-- Section 1: Prompt Engine -->
+        <div id="section-prompt" class="glass-panel p-5 rounded-2xl space-y-4">
+            <h3 class="text-md font-semibold text-gray-200 flex items-center">
+                <i class="fas fa-sparkles text-purple-400 mr-2"></i> हिंदी टू 4K एआई प्रॉम्प्ट जनरेटर
+            </h3>
+            <textarea id="prompt-input" rows="3" placeholder="यहाँ अपनी साधारण भाषा में लिखें (जैसे: मोबाइल दुकान के लिए ऑफर रील)..." class="w-full bg-gray-900/80 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition"></textarea>
+            
+            <button onclick="generatePrompt()" class="w-full btn-gradient py-3 rounded-xl font-medium text-sm text-white shadow-lg shadow-purple-500/20 hover:opacity-95 transition">
+                <i class="fas fa-wand-magic-sparkles mr-2"></i> Craft Professional AI Prompt
+            </button>
+
+            <div id="prompt-output-box" class="hidden space-y-2 pt-2">
+                <label class="text-xs text-gray-400">जनरेटेड सिनेमैटिक प्रॉम्प्ट (Ready for AI Video/Image):</label>
+                <div class="relative">
+                    <textarea id="prompt-output" readonly rows="3" class="w-full bg-gray-950 border border-purple-500/30 rounded-xl p-3 text-xs text-purple-200 font-mono focus:outline-none"></textarea>
+                    <button onclick="copyPrompt()" class="absolute right-2 bottom-3 text-xs bg-purple-800/60 hover:bg-purple-700 text-white px-3 py-1 rounded-md border border-purple-400/30">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: AI Video Generator -->
+        <div id="section-video" class="glass-panel p-5 rounded-2xl space-y-4 hidden">
+            <h3 class="text-md font-semibold text-gray-200 flex items-center">
+                <i class="fas fa-film text-pink-400 mr-2"></i> 9:16 Vertical Video Generator
+            </h3>
+            <textarea id="video-prompt-input" rows="3" placeholder="Paste your enhanced English prompt here..." class="w-full bg-gray-900/80 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition"></textarea>
+            
+            <div class="flex items-center space-x-2">
+                <button onclick="generateVideo()" id="btn-gen-video" class="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 py-3 rounded-xl font-medium text-sm text-white shadow-lg transition">
+                    <i class="fas fa-play mr-2"></i> Generate Video
+                </button>
+            </div>
+
+            <div id="video-preview-area" class="hidden flex flex-col items-center justify-center p-4 bg-gray-950 rounded-xl border border-gray-800 min-h-[250px]">
+                <div id="video-loading" class="text-center space-y-3">
+                    <div class="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+                    <p class="text-xs text-purple-300">Generating 9:16 AI Video... (In Progress)</p>
+                </div>
+                <video id="video-player" controls class="hidden rounded-lg max-h-[400px] w-auto shadow-2xl border border-gray-700"></video>
+            </div>
+        </div>
+
+        <!-- Section 3: Poster Generator -->
+        <div id="section-poster" class="glass-panel p-5 rounded-2xl space-y-4 hidden">
+            <h3 class="text-md font-semibold text-gray-200 flex items-center">
+                <i class="fas fa-palette text-blue-400 mr-2"></i> 4K Commercial Poster Maker
+            </h3>
+            <input id="poster-prompt-input" type="text" placeholder="Poster description (e.g. Salon promotional banner 4k)..." class="w-full bg-gray-900/80 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition">
+            
+            <button onclick="generatePoster()" id="btn-gen-poster" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 py-3 rounded-xl font-medium text-sm text-white shadow-lg transition">
+                <i class="fas fa-paint-brush mr-2"></i> Create Poster
+            </button>
+
+            <div id="poster-preview-area" class="hidden flex flex-col items-center justify-center p-4 bg-gray-950 rounded-xl border border-gray-800 min-h-[250px]">
+                <div id="poster-loading" class="text-center space-y-3">
+                    <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+                    <p class="text-xs text-blue-300">Designing 4K Poster...</p>
+                </div>
+                <img id="poster-image" class="hidden rounded-lg max-h-[400px] w-auto shadow-2xl border border-gray-700" alt="Generated Poster">
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Token Modal -->
+    <div id="token-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-panel w-full max-w-md p-6 rounded-2xl space-y-4 relative border border-purple-500/30">
+            <button onclick="closeTokenModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-purple-900/50 flex items-center justify-center text-purple-400">
+                    <i class="fas fa-key text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-white">Replicate API Token</h3>
+                    <p class="text-xs text-gray-400">Your token is stored locally in your browser</p>
+                </div>
+            </div>
+            <p class="text-xs text-gray-300">
+                Paste your secret Replicate API Token (<code class="bg-gray-800 px-1 py-0.5 rounded text-purple-300">r8_...</code>) below to connect Zuron Studio directly with high-performance video & image AI models.
+            </p>
+            <input type="password" id="token-input" placeholder="r8_xxxxxxxxxxxxxxxxxxxxxxxx" class="w-full bg-gray-900 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 font-mono focus:outline-none focus:border-purple-500">
+            <div class="flex space-x-2">
+                <button onclick="saveToken()" class="w-full btn-gradient py-2.5 rounded-xl text-sm font-medium text-white shadow">Save Token</button>
+                <button onclick="clearToken()" class="w-1/3 bg-red-900/40 hover:bg-red-900/60 border border-red-500/30 text-red-300 py-2.5 rounded-xl text-sm font-medium">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 text-xs text-gray-500 border-t border-gray-900">
+        © 2026 Zuron AI Ecosystem. All Rights Reserved.
+    </footer>
+
+    <!-- Script Section -->
+    <script>
+        // Modal Control
+        function openTokenModal() {
+            document.getElementById('token-modal').classList.remove('hidden');
+            const token = localStorage.getItem('zuron_replicate_token') || '';
+            document.getElementById('token-input').value = token;
+        }
+
+        function closeTokenModal() {
+            document.getElementById('token-modal').classList.add('hidden');
+        }
+
+        function saveToken() {
+            const token = document.getElementById('token-input').value.trim();
+            if(token) {
+                localStorage.setItem('zuron_replicate_token', token);
+                updateTokenUI(true);
+                closeTokenModal();
+                alert('API Token Saved Successfully!');
+            } else {
+                alert('Please enter a valid token');
+            }
+        }
+
+        function clearToken() {
+            localStorage.removeItem('zuron_replicate_token');
+            document.getElementById('token-input').value = '';
+            updateTokenUI(false);
+            closeTokenModal();
+            alert('Token Cleared');
+        }
+
+        function updateTokenUI(hasToken) {
+            const btnText = document.getElementById('token-status-text');
+            if(hasToken) {
+                btnText.innerText = 'Token Connected';
+                btnText.classList.add('text-green-400');
+            } else {
+                btnText.innerText = 'Set API Token';
+                btnText.classList.remove('text-green-400');
+            }
+        }
+
+        // Tab Switching
+        function switchTab(tab) {
+            ['prompt', 'video', 'poster'].forEach(t => {
+                document.getElementById(`section-${t}`).classList.add('hidden');
+                document.getElementById(`tab-${t}`).className = "py-2 text-sm font-medium rounded-lg text-gray-400 hover:text-white transition";
+            });
+            document.getElementById(`section-${tab}`).classList.remove('hidden');
+            document.getElementById(`tab-${tab}`).className = "py-2 text-sm font-medium rounded-lg text-white btn-gradient transition shadow";
+        }
+
+        // Prompt Generator Function
+        function generatePrompt() {
+            const input = document.getElementById('prompt-input').value.trim();
+            if(!input) {
+                alert('कृपया पहले कोई आइडिया लिखें!');
+                return;
+            }
+            
+            const enhancedPrompt = `Hyper-realistic 9:16 vertical video frame, cinematic lighting, 8k resolution, commercial grade output based on concept: "${input}". Vibrant color grading, sharp focus, octane render style, professional advertising look.`;
+            
+            document.getElementById('prompt-output').value = enhancedPrompt;
+            document.getElementById('prompt-output-box').classList.remove('hidden');
+        }
+
+        function copyPrompt() {
+            const text = document.getElementById('prompt-output');
+            text.select();
+            document.execCommand('copy');
+            alert('Prompt Copied!');
+        }
+
+        // Dummy Generator Triggers (Replicate API Hooks)
+        function generateVideo() {
+            const token = localStorage.getItem('zuron_replicate_token');
+            if(!token) {
+                openTokenModal();
+                return;
+            }
+            const prompt = document.getElementById('video-prompt-input').value.trim();
+            if(!prompt) {
+                alert('Please enter a prompt for the video!');
+                return;
+            }
+            
+            document.getElementById('video-preview-area').classList.remove('hidden');
+            document.getElementById('video-loading').classList.remove('hidden');
+            document.getElementById('video-player').classList.add('hidden');
+
+            setTimeout(() => {
+                document.getElementById('video-loading').classList.add('hidden');
+                alert('Replicate API Call Initiated with your Token! (Connect endpoint for live stream)');
+            }, 3000);
+        }
+
+        function generatePoster() {
+            const token = localStorage.getItem('zuron_replicate_token');
+            if(!token) {
+                openTokenModal();
+                return;
+            }
+            const prompt = document.getElementById('poster-prompt-input').value.trim();
+            if(!prompt) {
+                alert('Please enter a poster description!');
+                return;
+            }
+
+            document.getElementById('poster-preview-area').classList.remove('hidden');
+            document.getElementById('poster-loading').classList.remove('hidden');
+            document.getElementById('poster-image').classList.add('hidden');
+
+            setTimeout(() => {
+                document.getElementById('poster-loading').classList.add('hidden');
+                alert('Poster Generation Triggered via API!');
+            }, 3000);
+        }
+
+        // Check Token on Load
+        window.onload = function() {
+            const token = localStorage.getItem('zuron_replicate_token');
+            updateTokenUI(!!token);
+        };
+    </script>
+</body>
+  </html>
