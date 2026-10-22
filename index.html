@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zuron AI - Global Ecosystem Hub</title>
+    <title>Zuron AI - Founding Owner & Parent Gateway</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #07090e;
+            background-color: #05070c;
             color: #f3f4f6;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .glass-card {
-            background: rgba(17, 24, 39, 0.75);
+            background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
@@ -28,6 +28,9 @@
         .btn-gradient:hover {
             background: linear-gradient(135deg, #7c3aed 0%, #c026d3 100%);
         }
+        .owner-badge {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
@@ -40,15 +43,18 @@
             </div>
             <div>
                 <h1 class="text-xl font-extrabold tracking-wide gradient-text">Zuron AI</h1>
-                <p class="text-xs text-gray-400">Parent Ecosystem Hub</p>
+                <p class="text-xs text-gray-400">Parent Intelligence System</p>
             </div>
         </div>
         
         <div id="nav-user-info" class="hidden flex items-center space-x-3">
-            <img id="nav-user-avatar" src="" alt="Avatar" class="w-9 h-9 rounded-full object-cover border border-purple-500">
-            <span id="nav-user-name" class="text-sm font-medium text-purple-200"></span>
-            <button onclick="logout()" class="text-xs bg-red-900/40 hover:bg-red-900/60 text-red-300 px-3 py-1.5 rounded-lg border border-red-500/30 transition">
-                <i class="fas fa-sign-out-alt"></i> Logout
+            <img id="nav-user-avatar" src="" alt="Avatar" class="w-9 h-9 rounded-full object-cover border-2 border-amber-500">
+            <div>
+                <span id="nav-user-name" class="text-sm font-bold text-amber-300 block leading-tight"></span>
+                <span id="nav-user-role" class="text-[10px] text-gray-400 block">Founding Owner</span>
+            </div>
+            <button onclick="logout()" class="ml-2 text-xs bg-red-900/40 hover:bg-red-900/60 text-red-300 px-3 py-1.5 rounded-lg border border-red-500/30 transition">
+                <i class="fas fa-sign-out-alt"></i> Exit
             </button>
         </div>
     </header>
@@ -56,79 +62,120 @@
     <!-- Main Container -->
     <main class="max-w-4xl mx-auto w-full p-4 flex-grow flex items-center justify-center">
 
-        <!-- STEP 1: Login / Signup Form -->
+        <!-- STEP 1: Smart Authentication Gate -->
         <div id="step-auth" class="glass-card w-full max-w-md p-8 rounded-3xl space-y-6 shadow-2xl border border-purple-500/20">
             <div class="text-center space-y-2">
-                <h2 class="text-2xl font-bold text-white">Zuron ID में प्रवेश करें</h2>
-                <p class="text-xs text-gray-400">अपनी सुरक्षित Zuron ID से सभी एआई टूल्स का आनंद लें</p>
+                <div class="inline-block p-3 rounded-2xl bg-purple-900/30 border border-purple-500/30 mb-2">
+                    <i class="fas fa-shield-halved text-2xl text-purple-400"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-white">Zuron AI प्रवेश द्वार</h2>
+                <p class="text-xs text-gray-400">अपनी Zuron ID या Owner Master Key दर्ज करें</p>
             </div>
 
             <div class="space-y-4">
                 <div>
-                    <label class="text-xs text-gray-400 block mb-1">Zuron ID / ईमेल</label>
-                    <input type="email" id="auth-email" placeholder="username@zuron.ai" class="w-full bg-gray-900/90 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition">
+                    <label class="text-xs text-gray-400 block mb-1">Zuron ID / मालिक का ईमेल</label>
+                    <input type="email" id="auth-email" placeholder="owner@zuron.ai" class="w-full bg-gray-900/90 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition">
                 </div>
                 <div>
-                    <label class="text-xs text-gray-400 block mb-1">पासवर्ड</label>
+                    <label class="text-xs text-gray-400 block mb-1">पासवर्ड या Master Key</label>
                     <input type="password" id="auth-password" placeholder="••••••••" class="w-full bg-gray-900/90 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition">
+                    <p class="text-[10px] text-gray-500 mt-1">*मालिक का गुप्त मास्टर कोड: ZURON2026</p>
                 </div>
-                <button onclick="goToProfileSetup()" class="w-full btn-gradient py-3 rounded-xl font-medium text-sm text-white shadow-lg shadow-purple-500/20 transition">
-                    आगे बढ़ें (Next) <i class="fas fa-arrow-right ml-1"></i>
+                <button onclick="checkAuthentication()" class="w-full btn-gradient py-3 rounded-xl font-medium text-sm text-white shadow-lg shadow-purple-500/20 transition">
+                    सिस्टम में प्रवेश करें <i class="fas fa-arrow-right ml-1"></i>
                 </button>
             </div>
         </div>
 
-        <!-- STEP 2: Profile Setup (Name & Photo) -->
+        <!-- STEP 2: Standard User Profile Setup (Only shown if NOT Owner) -->
         <div id="step-profile" class="hidden glass-card w-full max-w-md p-8 rounded-3xl space-y-6 shadow-2xl border border-purple-500/20">
             <div class="text-center space-y-2">
-                <h2 class="text-2xl font-bold text-white">प्रोफाइल सेटअप</h2>
+                <h2 class="text-2xl font-bold text-white">यूज़र प्रोफाइल सेटअप</h2>
                 <p class="text-xs text-gray-400">अपनी पहचान Zuron इकोसिस्टम में दर्ज करें</p>
             </div>
 
             <div class="space-y-4">
                 <div>
                     <label class="text-xs text-gray-400 block mb-1">आपका पूरा नाम</label>
-                    <input type="text" id="profile-name" placeholder="जैसे: Karan Singh" class="w-full bg-gray-900/90 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition">
+                    <input type="text" id="profile-name" placeholder="आपका नाम" class="w-full bg-gray-900/90 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition">
                 </div>
                 <div>
-                    <label class="text-xs text-gray-400 block mb-1">प्रोफाइल फोटो लिंक (URL) या अवतार चुनें</label>
+                    <label class="text-xs text-gray-400 block mb-1">प्रोफाइल फोटो URL</label>
                     <input type="text" id="profile-avatar" placeholder="https://image-link.com/photo.jpg" class="w-full bg-gray-900/90 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition">
                 </div>
-                <button onclick="completeLogin()" class="w-full btn-gradient py-3 rounded-xl font-medium text-sm text-white shadow-lg shadow-purple-500/20 transition">
+                <button onclick="completeUserProfile()" class="w-full btn-gradient py-3 rounded-xl font-medium text-sm text-white shadow-lg shadow-purple-500/20 transition">
                     डैशबोर्ड खोलें <i class="fas fa-rocket ml-1"></i>
                 </button>
             </div>
         </div>
 
-        <!-- STEP 3: Ecosystem Dashboard / Tools Menu -->
+        <!-- STEP 3: Ecosystem & Founder Control Dashboard -->
         <div id="step-dashboard" class="hidden w-full space-y-6 py-6">
             
-            <!-- Welcome Banner -->
-            <div class="glass-card p-6 rounded-3xl flex items-center justify-between border-l-4 border-purple-500">
+            <!-- Owner Welcome Banner -->
+            <div class="glass-card p-6 rounded-3xl flex flex-col md:flex-row items-center justify-between border-l-4 border-amber-500 gap-4">
                 <div class="flex items-center space-x-4">
-                    <img id="dash-user-avatar" src="" alt="User" class="w-14 h-14 rounded-2xl object-cover border-2 border-purple-500 shadow-md">
+                    <img id="dash-user-avatar" src="" alt="Owner Avatar" class="w-16 h-16 rounded-2xl object-cover border-2 border-amber-500 shadow-md">
                     <div>
-                        <h2 class="text-xl font-bold text-white" id="dash-welcome-text">स्वागत है!</h2>
-                        <p class="text-xs text-gray-400">Zuron AI सेंट्रल कंट्रोल सिस्टम सक्रिय है।</p>
+                        <div class="flex items-center space-x-2">
+                            <h2 class="text-2xl font-black text-white" id="dash-welcome-text">प्रणाम, मालिक!</h2>
+                            <span id="dash-role-tag" class="owner-badge text-[10px] text-black font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">FOUNDER OWNER</span>
+                        </div>
+                        <p class="text-xs text-amber-200/80 mt-0.5">Zuron AI सेंट्रल कंट्रोल सिस्टम आपके आदेश के लिए सक्रिय है।</p>
                     </div>
                 </div>
-                <span class="text-xs bg-purple-900/50 text-purple-300 px-3 py-1 rounded-full border border-purple-500/30">
-                    Admin / Pro ID
-                </span>
+                
+                <!-- System Status Indicator -->
+                <div class="flex items-center space-x-3 bg-gray-900/80 px-4 py-2 rounded-2xl border border-gray-800">
+                    <div class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <div class="text-left">
+                        <p class="text-[10px] text-gray-400">Core Engine</p>
+                        <p class="text-xs font-bold text-emerald-400">100% Operational</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LIVE OWNER CONTROL ROOM PANEL (Shown for Owner) -->
+            <div id="owner-live-panel" class="glass-card p-6 rounded-3xl border border-amber-500/30 space-y-4">
+                <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+                    <h3 class="text-sm font-bold text-amber-400 flex items-center">
+                        <i class="fas fa-chart-line mr-2"></i> Zuron AI - कंपनी लाइव कंट्रोल रूम (Owner Monitor)
+                    </h3>
+                    <span class="text-[10px] bg-amber-900/40 text-amber-300 px-2.5 py-1 rounded-md border border-amber-500/30">Master Level Access</span>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 text-center">
+                        <p class="text-[10px] text-gray-400">सेंट्रल बैकएंड</p>
+                        <p class="text-xs font-bold text-green-400 mt-1"><i class="fas fa-check-circle mr-1"></i> Active</p>
+                    </div>
+                    <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 text-center">
+                        <p class="text-[10px] text-gray-400">Zuron ID Security</p>
+                        <p class="text-xs font-bold text-purple-400 mt-1"><i class="fas fa-lock mr-1"></i> Locked</p>
+                    </div>
+                    <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 text-center">
+                        <p class="text-[10px] text-gray-400">प्राइमरी टूल</p>
+                        <p class="text-xs font-bold text-blue-400 mt-1">Zuron Studio</p>
+                    </div>
+                    <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 text-center">
+                        <p class="text-[10px] text-gray-400">ओनरशिप परमिशन</p>
+                        <p class="text-xs font-bold text-amber-400 mt-1">Unrestricted</p>
+                    </div>
+                </div>
             </div>
 
             <!-- Tools Section Heading -->
-            <div class="flex justify-between items-center px-2">
-                <h3 class="text-lg font-bold text-gray-200"><i class="fas fa-th-large text-purple-400 mr-2"></i> Zuron AI इकोसिस्टम टूल्स</h3>
-                <span class="text-xs text-gray-400">All-in-One Suite</span>
+            <div class="flex justify-between items-center px-2 pt-2">
+                <h3 class="text-lg font-bold text-gray-200"><i class="fas fa-cubes text-purple-400 mr-2"></i> Zuron AI इकोसिस्टम टूल्स</h3>
+                <span class="text-xs text-gray-400">Plug-and-Play Suite</span>
             </div>
 
-            <!-- Tools Grid (Flagship Tool First) -->
+            <!-- Tools Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                <!-- 1. Zuron Studio (Flagship Tool - First Priority) -->
+                <!-- 1. Zuron Studio (Flagship Tool) -->
                 <a href="studio.html" class="glass-card p-6 rounded-3xl hover:border-purple-500/60 transition group relative overflow-hidden flex flex-col justify-between">
-                    <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition"></div>
                     <div class="space-y-3">
                         <div class="w-12 h-12 rounded-2xl btn-gradient flex items-center justify-center text-white text-xl shadow-lg">
                             <i class="fas fa-wand-magic-sparkles"></i>
@@ -142,7 +189,7 @@
                 </a>
 
                 <!-- 2. KARAN RESOLVE -->
-                <div onclick="alert('KARAN RESOLVE टूल जल्द ही लाइव हो रहा है!')" class="glass-card p-6 rounded-3xl hover:border-blue-500/60 transition group relative overflow-hidden flex flex-col justify-between cursor-pointer">
+                <div onclick="alert('KARAN RESOLVE टूल बैकएंड से कनेक्ट हो रहा है!')" class="glass-card p-6 rounded-3xl hover:border-blue-500/60 transition group relative overflow-hidden flex flex-col justify-between cursor-pointer">
                     <div class="space-y-3">
                         <div class="w-12 h-12 rounded-2xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xl">
                             <i class="fas fa-shield-alt"></i>
@@ -151,7 +198,7 @@
                         <p class="text-xs text-gray-400 leading-relaxed">1-क्लिक शिकायत ड्राफ्टिंग, प्रॉब्लम कैटेगराइजेशन और ऑटोमेशन सूट।</p>
                     </div>
                     <div class="mt-6 flex items-center text-xs text-blue-400 font-medium">
-                        <span>शीघ्र आ रहा है</span> <i class="fas fa-clock ml-2"></i>
+                        <span>प्लग-एंड-प्ले पाइपलाइन</span> <i class="fas fa-clock ml-2"></i>
                     </div>
                 </div>
 
@@ -165,21 +212,21 @@
                         <p class="text-xs text-gray-400 leading-relaxed">WhatsApp ऑटोमेशन, एआई वॉइस एजेंट और लोकल बिजनेस डिजिटल मार्केटिंग।</p>
                     </div>
                     <div class="mt-6 flex items-center text-xs text-pink-400 font-medium">
-                        <span>शीघ्र आ रहा है</span> <i class="fas fa-clock ml-2"></i>
+                        <span>प्लग-एंड-प्ले पाइपलाइन</span> <i class="fas fa-clock ml-2"></i>
                     </div>
                 </div>
 
-                <!-- 4. Zuron ID Security -->
+                <!-- 4. Zuron ID SSO Badge -->
                 <div class="glass-card p-6 rounded-3xl border border-gray-800 flex flex-col justify-between">
                     <div class="space-y-3">
                         <div class="w-12 h-12 rounded-2xl bg-gray-800 flex items-center justify-center text-gray-300 text-xl">
                             <i class="fas fa-id-badge"></i>
                         </div>
                         <h4 class="text-lg font-bold text-white">Zuron ID (SSO)</h4>
-                        <p class="text-xs text-gray-400 leading-relaxed">100% प्राइवेट और सुरक्षित सिंगल साइन-ऑन पहचान जो आपका सारा डेटा सुरक्षित रखती है।</p>
+                        <p class="text-xs text-gray-400 leading-relaxed">सेंट्रल बैकएंड से सुरक्षित पहचान। आपका डेटा हर टूल में सिंक रहेगा।</p>
                     </div>
-                    <div class="mt-6 text-xs text-green-400 font-medium flex items-center">
-                        <i class="fas fa-check-circle mr-1"></i> Active Session
+                    <div class="mt-6 text-xs text-emerald-400 font-medium flex items-center">
+                        <i class="fas fa-check-circle mr-1"></i> Master Session Active
                     </div>
                 </div>
 
@@ -191,33 +238,49 @@
 
     <!-- Footer -->
     <footer class="text-center py-4 text-xs text-gray-500 border-t border-gray-900">
-        © 2026 Zuron AI Ecosystem. All Rights Reserved.
+        © 2026 Zuron AI Ecosystem. All Rights Reserved. Owned by Founder.
     </footer>
 
     <!-- Script Section -->
     <script>
+        // MASTER SECRET CODE FOR OWNER BYPASS
+        const MASTER_PIN = "ZURON2026";
         let tempEmail = '';
 
-        function goToProfileSetup() {
+        function checkAuthentication() {
             const email = document.getElementById('auth-email').value.trim();
             const pass = document.getElementById('auth-password').value.trim();
+
             if(!email || !pass) {
-                alert('कृपया अपनी Zuron ID और पासवर्ड दर्ज करें!');
+                alert('कृपया आईडी और पासवर्ड दर्ज करें!');
                 return;
             }
-            tempEmail = email;
-            document.getElementById('step-auth').classList.add('hidden');
-            document.getElementById('step-profile').classList.remove('hidden');
+
+            // IF OWNER ENTERS MASTER PIN: INSTANT OWNER BYPASS UNLOCK!
+            if (pass === MASTER_PIN || email.toLowerCase().includes('owner')) {
+                localStorage.setItem('zuron_role', 'owner');
+                localStorage.setItem('zuron_user_name', 'Founding Owner');
+                localStorage.setItem('zuron_user_email', email);
+                localStorage.setItem('zuron_user_avatar', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'); // Executive Avatar
+                localStorage.setItem('zuron_logged_in', 'true');
+                
+                loadDashboard();
+            } else {
+                // Regular User Flow
+                tempEmail = email;
+                localStorage.setItem('zuron_role', 'user');
+                document.getElementById('step-auth').classList.add('hidden');
+                document.getElementById('step-profile').classList.remove('hidden');
+            }
         }
 
-        function completeLogin() {
-            const name = document.getElementById('profile-name').value.trim() || 'Zuron Admin';
+        function completeUserProfile() {
+            const name = document.getElementById('profile-name').value.trim() || 'Zuron User';
             let avatar = document.getElementById('profile-avatar').value.trim();
             if(!avatar) {
                 avatar = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150';
             }
 
-            // Save user session in localStorage
             localStorage.setItem('zuron_user_name', name);
             localStorage.setItem('zuron_user_email', tempEmail);
             localStorage.setItem('zuron_user_avatar', avatar);
@@ -227,7 +290,8 @@
         }
 
         function loadDashboard() {
-            const name = localStorage.getItem('zuron_user_name') || 'Zuron Admin';
+            const role = localStorage.getItem('zuron_role') || 'user';
+            const name = localStorage.getItem('zuron_user_name') || 'User';
             const avatar = localStorage.getItem('zuron_user_avatar') || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150';
 
             document.getElementById('step-auth').classList.add('hidden');
@@ -238,16 +302,27 @@
             document.getElementById('nav-user-name').innerText = name;
             document.getElementById('nav-user-avatar').src = avatar;
 
-            document.getElementById('dash-welcome-text').innerText = `स्वागत है, ${name}!`;
             document.getElementById('dash-user-avatar').src = avatar;
+
+            if (role === 'owner') {
+                document.getElementById('dash-welcome-text').innerText = `प्रणाम, ${name}!`;
+                document.getElementById('nav-user-role').innerText = 'Founding Owner';
+                document.getElementById('owner-live-panel').classList.remove('hidden');
+            } else {
+                document.getElementById('dash-welcome-text').innerText = `स्वागत है, ${name}!`;
+                document.getElementById('dash-role-tag').innerText = 'PRO USER';
+                document.getElementById('dash-role-tag').className = 'bg-purple-900/50 text-purple-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-purple-500/30';
+                document.getElementById('nav-user-role').innerText = 'Zuron Member';
+                document.getElementById('owner-live-panel').classList.add('hidden');
+            }
         }
 
         function logout() {
-            localStorage.removeItem('zuron_logged_in');
+            localStorage.clear();
             location.reload();
         }
 
-        // Check login state on load
+        // Auto load if session exists
         window.onload = function() {
             if(localStorage.getItem('zuron_logged_in') === 'true') {
                 loadDashboard();
@@ -255,4 +330,4 @@
         };
     </script>
 </body>
-    </html>
+                    </html>
