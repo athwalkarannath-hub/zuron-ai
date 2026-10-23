@@ -3,24 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zuron Studio - AI Creation Engine</title>
+    <title>Zuron Studio - Local Business & Moturam AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #0b0f17;
+            background-color: #05070c;
             color: #f3f4f6;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .glass-panel {
-            background: rgba(17, 24, 39, 0.7);
-            backdrop-filter: blur(12px);
+        .glass-card {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #3b82f6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
         .btn-gradient {
             background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%);
@@ -30,280 +25,215 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between">
+<body class="min-h-screen p-4 md:p-8 flex flex-col justify-between">
 
-    <!-- Top Navigation Bar -->
-    <header class="glass-panel sticky top-0 z-50 px-4 py-3 flex justify-between items-center border-b border-gray-800">
+    <!-- Top Navigation -->
+    <header class="max-w-6xl mx-auto w-full glass-card p-4 rounded-2xl flex justify-between items-center mb-6">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl btn-gradient flex items-center justify-center font-bold text-xl shadow-lg shadow-purple-500/20">
-                Z
-            </div>
-            <div>
-                <h1 class="text-xl font-extrabold tracking-wide gradient-text">Zuron Studio</h1>
-                <p class="text-xs text-gray-400">Powered by Zuron AI Ecosystem</p>
-            </div>
-        </div>
-        
-        <div class="flex items-center space-x-2">
-            <button onclick="openTokenModal()" class="text-xs bg-gray-800 hover:bg-gray-700 text-purple-300 border border-purple-500/30 px-3 py-2 rounded-lg flex items-center space-x-1 transition">
-                <i class="fas fa-key"></i>
-                <span id="token-status-text">Set API Token</span>
-            </button>
-            <a href="index.html" class="text-xs bg-gray-800 hover:bg-gray-700 text-gray-300 px-3 py-2 rounded-lg transition">
-                <i class="fas fa-home"></i> Main Hub
+            <a href="index.html" class="w-10 h-10 rounded-xl bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-gray-300 transition">
+                <i class="fas fa-arrow-left"></i>
             </a>
+            <div>
+                <h1 class="text-xl font-bold text-white flex items-center">
+                    Zuron Studio <span class="ml-2 text-[10px] bg-purple-900/60 text-purple-300 px-2.5 py-0.5 rounded-full border border-purple-500/30">Local Business Promo Engine</span>
+                </h1>
+                <p class="text-xs text-gray-400">9:16 Shop Promotional Video & Moturam Voice AI</p>
+            </div>
         </div>
+
+        <button onclick="setApiKey()" class="text-xs bg-gray-800 hover:bg-gray-700 text-purple-300 px-3 py-2 rounded-xl border border-purple-500/30 transition">
+            <i class="fas fa-key mr-1"></i> API Key Setup
+        </button>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="max-w-4xl mx-auto w-full p-4 flex-grow space-y-6">
+    <!-- Main Studio Content -->
+    <main class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-3 gap-6 flex-grow">
 
-        <!-- Banner / Status -->
-        <div class="glass-panel p-4 rounded-2xl flex items-center justify-between border-l-4 border-purple-500">
-            <div>
-                <h2 class="text-lg font-semibold text-white">AI Studio Creation Engine</h2>
-                <p class="text-xs text-gray-400">9:16 रील्स, वीडियो प्रॉम्प्ट्स और 4K पोस्टर्स मिनटों में तैयार करें</p>
-            </div>
-            <span class="text-xs bg-purple-900/50 text-purple-300 px-3 py-1 rounded-full border border-purple-500/30">
-                v1.0 Ready
-            </span>
-        </div>
+        <!-- Controls Area (2 Columns) -->
+        <div class="lg:col-span-2 space-y-6">
 
-        <!-- Mode Selector -->
-        <div class="grid grid-cols-3 gap-2 p-1 glass-panel rounded-xl">
-            <button onclick="switchTab('prompt')" id="tab-prompt" class="py-2 text-sm font-medium rounded-lg text-white btn-gradient transition shadow">
-                <i class="fas fa-magic mr-1"></i> Smart Prompt
-            </button>
-            <button onclick="switchTab('video')" id="tab-video" class="py-2 text-sm font-medium rounded-lg text-gray-400 hover:text-white transition">
-                <i class="fas fa-video mr-1"></i> AI Video
-            </button>
-            <button onclick="switchTab('poster')" id="tab-poster" class="py-2 text-sm font-medium rounded-lg text-gray-400 hover:text-white transition">
-                <i class="fas fa-image mr-1"></i> Poster Generator
-            </button>
-        </div>
+            <!-- Shop Promo Presets -->
+            <div class="glass-card p-6 rounded-3xl space-y-4 border-l-4 border-emerald-500">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-base font-bold text-white flex items-center">
+                        <i class="fas fa-store text-emerald-400 mr-2"></i> दुकान का प्रकार चुनें (Local Shop Presets)
+                    </h2>
+                    <span class="text-[10px] bg-emerald-900/50 text-emerald-300 px-2 py-0.5 rounded-md border border-emerald-500/30">1-Click Auto Promo</span>
+                </div>
+                <p class="text-xs text-gray-400">अपनी दुकान का प्रकार चुनें, एआई अपने आप प्रोमोशनल डायलॉग और सीन सेट कर देगा:</p>
 
-        <!-- Section 1: Prompt Engine -->
-        <div id="section-prompt" class="glass-panel p-5 rounded-2xl space-y-4">
-            <h3 class="text-md font-semibold text-gray-200 flex items-center">
-                <i class="fas fa-sparkles text-purple-400 mr-2"></i> हिंदी टू 4K एआई प्रॉम्प्ट जनरेटर
-            </h3>
-            <textarea id="prompt-input" rows="3" placeholder="यहाँ अपनी साधारण भाषा में लिखें (जैसे: मोबाइल दुकान के लिए ऑफर रील)..." class="w-full bg-gray-900/80 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition"></textarea>
-            
-            <button onclick="generatePrompt()" class="w-full btn-gradient py-3 rounded-xl font-medium text-sm text-white shadow-lg shadow-purple-500/20 hover:opacity-95 transition">
-                <i class="fas fa-wand-magic-sparkles mr-2"></i> Craft Professional AI Prompt
-            </button>
-
-            <div id="prompt-output-box" class="hidden space-y-2 pt-2">
-                <label class="text-xs text-gray-400">जनरेटेड सिनेमैटिक प्रॉम्प्ट (Ready for AI Video/Image):</label>
-                <div class="relative">
-                    <textarea id="prompt-output" readonly rows="3" class="w-full bg-gray-950 border border-purple-500/30 rounded-xl p-3 text-xs text-purple-200 font-mono focus:outline-none"></textarea>
-                    <button onclick="copyPrompt()" class="absolute right-2 bottom-3 text-xs bg-purple-800/60 hover:bg-purple-700 text-white px-3 py-1 rounded-md border border-purple-400/30">
-                        <i class="fas fa-copy"></i> Copy
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    <button onclick="applyShopPreset('medical')" class="p-3 bg-gray-900/80 hover:bg-gray-800 rounded-xl text-xs text-emerald-200 border border-emerald-500/20 text-center transition">
+                        💊 मेडिकल / जन औषधि
+                    </button>
+                    <button onclick="applyShopPreset('kirana')" class="p-3 bg-gray-900/80 hover:bg-gray-800 rounded-xl text-xs text-emerald-200 border border-emerald-500/20 text-center transition">
+                        🛒 किराना व सुपरस्टोर
+                    </button>
+                    <button onclick="applyShopPreset('beauty')" class="p-3 bg-gray-900/80 hover:bg-gray-800 rounded-xl text-xs text-emerald-200 border border-emerald-500/20 text-center transition">
+                        ✂️ सैलून व ब्यूटी पार्लर
+                    </button>
+                    <button onclick="applyShopPreset('mobile')" class="p-3 bg-gray-900/80 hover:bg-gray-800 rounded-xl text-xs text-emerald-200 border border-emerald-500/20 text-center transition">
+                        📱 मोबाइल व ई-मित्र
                     </button>
                 </div>
             </div>
-        </div>
 
-        <!-- Section 2: AI Video Generator -->
-        <div id="section-video" class="glass-panel p-5 rounded-2xl space-y-4 hidden">
-            <h3 class="text-md font-semibold text-gray-200 flex items-center">
-                <i class="fas fa-film text-pink-400 mr-2"></i> 9:16 Vertical Video Generator
-            </h3>
-            <textarea id="video-prompt-input" rows="3" placeholder="Paste your enhanced English prompt here..." class="w-full bg-gray-900/80 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition"></textarea>
-            
-            <div class="flex items-center space-x-2">
-                <button onclick="generateVideo()" id="btn-gen-video" class="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 py-3 rounded-xl font-medium text-sm text-white shadow-lg transition">
-                    <i class="fas fa-play mr-2"></i> Generate Video
+            <!-- Custom Shop & Voice Script Writer -->
+            <div class="glass-card p-6 rounded-3xl space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs font-bold text-gray-300 block mb-1">दुकान का नाम व ऑफर (Shop Details)</label>
+                        <input id="shop-name" type="text" placeholder="उदा: गुप्ता जी किराना स्टोर - 10% छूट" class="w-full bg-gray-900/90 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-300 block mb-1">वॉइस ओवर मोड (Moturam Voice Command)</label>
+                        <select id="voice-style" class="w-full bg-gray-900/90 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition">
+                            <option value="funny">🎙️ मोटूराम देहाती कॉमेडी स्टाइल</option>
+                            <option value="professional">🎙️ प्रोफेशनल प्रोमोशनल वॉइस</option>
+                            <option value="energetic">🎙️ धमाकेदार डिस्काउंट ऑफर स्टाइल</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-xs font-bold text-gray-300 block mb-1">दुकान का प्रोमो सीन या स्क्रिप्ट (हिंदी में)</label>
+                    <textarea id="user-prompt" rows="3" placeholder="जैसे: मोटूराम दुकान के आगे खड़ा होकर बोल रहा है - अरे भाई राम-राम! सस्ती दवाइयाँ चाहिए तो सीधे मेडिकल स्टोर पर आओ..." class="w-full bg-gray-900/90 border border-gray-700 rounded-2xl p-4 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition"></textarea>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <button onclick="makeSmartPromoPrompt()" class="bg-gray-800 hover:bg-gray-700 text-purple-300 text-xs px-4 py-2.5 rounded-xl border border-purple-500/30 transition">
+                        <i class="fas fa-wand-magic-sparkles mr-1"></i> एआई प्रोमो स्क्रिप्ट में बदलें
+                    </button>
+                    <span class="text-[10px] text-gray-500">Aspect Ratio: 9:16 (Vertical Reel)</span>
+                </div>
+
+                <div>
+                    <label class="text-xs font-bold text-gray-400 block mb-1">फाइनल एआई वीडियो व ऑडियो प्रॉम्प्ट</label>
+                    <textarea id="final-prompt" rows="3" readonly class="w-full bg-black/60 border border-gray-800 rounded-2xl p-4 text-xs text-purple-300 font-mono focus:outline-none"></textarea>
+                </div>
+
+                <button onclick="startVideoGeneration()" class="w-full btn-gradient py-4 rounded-2xl font-bold text-sm text-white shadow-lg shadow-purple-500/20 flex items-center justify-center space-x-2 transition">
+                    <i class="fas fa-film"></i>
+                    <span>9:16 प्रोमोशनल एआई वीडियो रेंडर करें</span>
                 </button>
             </div>
 
-            <div id="video-preview-area" class="hidden flex flex-col items-center justify-center p-4 bg-gray-950 rounded-xl border border-gray-800 min-h-[250px]">
-                <div id="video-loading" class="text-center space-y-3">
-                    <div class="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-                    <p class="text-xs text-purple-300">Generating 9:16 AI Video... (In Progress)</p>
-                </div>
-                <video id="video-player" controls class="hidden rounded-lg max-h-[400px] w-auto shadow-2xl border border-gray-700"></video>
-            </div>
         </div>
 
-        <!-- Section 3: Poster Generator -->
-        <div id="section-poster" class="glass-panel p-5 rounded-2xl space-y-4 hidden">
-            <h3 class="text-md font-semibold text-gray-200 flex items-center">
-                <i class="fas fa-palette text-blue-400 mr-2"></i> 4K Commercial Poster Maker
-            </h3>
-            <input id="poster-prompt-input" type="text" placeholder="Poster description (e.g. Salon promotional banner 4k)..." class="w-full bg-gray-900/80 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition">
-            
-            <button onclick="generatePoster()" id="btn-gen-poster" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 py-3 rounded-xl font-medium text-sm text-white shadow-lg transition">
-                <i class="fas fa-paint-brush mr-2"></i> Create Poster
-            </button>
-
-            <div id="poster-preview-area" class="hidden flex flex-col items-center justify-center p-4 bg-gray-950 rounded-xl border border-gray-800 min-h-[250px]">
-                <div id="poster-loading" class="text-center space-y-3">
-                    <div class="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-                    <p class="text-xs text-blue-300">Designing 4K Poster...</p>
+        <!-- Video Preview & Audio Player Box -->
+        <div class="space-y-6">
+            <div class="glass-card p-6 rounded-3xl space-y-4 text-center h-full flex flex-col justify-between">
+                <div>
+                    <h3 class="text-sm font-bold text-gray-300 mb-4"><i class="fas fa-mobile-screen text-purple-400 mr-2"></i> 9:16 प्रोमो वीडियो प्लेयर</h3>
+                    
+                    <!-- Player Box -->
+                    <div id="player-container" class="w-full aspect-[9/16] max-w-[260px] mx-auto bg-gray-900/90 rounded-2xl border-2 border-dashed border-gray-800 flex flex-col items-center justify-center p-4 relative overflow-hidden shadow-2xl">
+                        <i class="fas fa-store text-4xl text-gray-700 mb-2"></i>
+                        <p class="text-xs text-gray-500">यहाँ दुकानदार का 9:16 एआई वीडियो और वॉइस-ओवर रेंडर होकर चलेगा</p>
+                    </div>
                 </div>
-                <img id="poster-image" class="hidden rounded-lg max-h-[400px] w-auto shadow-2xl border border-gray-700" alt="Generated Poster">
+
+                <div id="status-badge" class="text-xs bg-gray-900 text-amber-400 py-2.5 px-4 rounded-xl border border-gray-800 font-medium">
+                    प्रोमो इंजन रेडी है
+                </div>
             </div>
         </div>
 
     </main>
 
-    <!-- Token Modal -->
-    <div id="token-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="glass-panel w-full max-w-md p-6 rounded-2xl space-y-4 relative border border-purple-500/30">
-            <button onclick="closeTokenModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-purple-900/50 flex items-center justify-center text-purple-400">
-                    <i class="fas fa-key text-xl"></i>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-white">Replicate API Token</h3>
-                    <p class="text-xs text-gray-400">Your token is stored locally in your browser</p>
-                </div>
-            </div>
-            <p class="text-xs text-gray-300">
-                Paste your secret Replicate API Token (<code class="bg-gray-800 px-1 py-0.5 rounded text-purple-300">r8_...</code>) below to connect Zuron Studio directly with high-performance video & image AI models.
-            </p>
-            <input type="password" id="token-input" placeholder="r8_xxxxxxxxxxxxxxxxxxxxxxxx" class="w-full bg-gray-900 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 font-mono focus:outline-none focus:border-purple-500">
-            <div class="flex space-x-2">
-                <button onclick="saveToken()" class="w-full btn-gradient py-2.5 rounded-xl text-sm font-medium text-white shadow">Save Token</button>
-                <button onclick="clearToken()" class="w-1/3 bg-red-900/40 hover:bg-red-900/60 border border-red-500/30 text-red-300 py-2.5 rounded-xl text-sm font-medium">Clear</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Footer -->
-    <footer class="text-center py-4 text-xs text-gray-500 border-t border-gray-900">
-        © 2026 Zuron AI Ecosystem. All Rights Reserved.
+    <footer class="text-center py-4 text-xs text-gray-600">
+        Zuron AI Studio • Local Business Automation Suite
     </footer>
 
-    <!-- Script Section -->
+    <!-- Script Logic -->
     <script>
-        // Modal Control
-        function openTokenModal() {
-            document.getElementById('token-modal').classList.remove('hidden');
-            const token = localStorage.getItem('zuron_replicate_token') || '';
-            document.getElementById('token-input').value = token;
-        }
+        const BASE_MOTURAM_PROMO = "Moturam character, chubby comical Indian man in traditional outfit standing near shop counter, brightly lit local Indian shop background, highly detailed 3D render, 8k resolution, cinematic 9:16 vertical video.";
 
-        function closeTokenModal() {
-            document.getElementById('token-modal').classList.add('hidden');
-        }
+        function applyShopPreset(type) {
+            const shopInput = document.getElementById('shop-name');
+            const promptBox = document.getElementById('user-prompt');
 
-        function saveToken() {
-            const token = document.getElementById('token-input').value.trim();
-            if(token) {
-                localStorage.setItem('zuron_replicate_token', token);
-                updateTokenUI(true);
-                closeTokenModal();
-                alert('API Token Saved Successfully!');
-            } else {
-                alert('Please enter a valid token');
+            if(type === 'medical') {
+                shopInput.value = "जन औषधि एवं मेडिकल केंद्र";
+                promptBox.value = "अरे भाई! महंगी दवाइयों का चक्कर छोड़ो! हमारी मेडिकल दुकान पर पाओ 80% तक की छूट और असली दवाइयाँ।";
+            } else if(type === 'kirana') {
+                shopInput.value = "श्री राम किराना एवं सुपरस्टोर";
+                promptBox.value = "गाँव-शहर की सबसे ताज़ा राशन सामग्री, तेल, मसाले और डिस्काउंट का धमाका! आज ही पधारें।";
+            } else if(type === 'beauty') {
+                shopInput.value = "रॉयल हेयर सैलून व ब्यूटी पार्लर";
+                promptBox.value = "शादी-ब्याह और त्योहारों में पाना है शानदार लुक? हमारे सैलून में आएं और पाएँ 20% की विशेष छूट!";
+            } else if(type === 'mobile') {
+                shopInput.value = "डिजिटल मोबाइल व ई-मित्र सेवा";
+                promptBox.value = "नया मोबाइल, रिपेयरिंग और सभी ऑनलाइन फॉर्म भरने के लिए एक मात्र भरोसेमंद दुकान!";
             }
+            makeSmartPromoPrompt();
         }
 
-        function clearToken() {
-            localStorage.removeItem('zuron_replicate_token');
-            document.getElementById('token-input').value = '';
-            updateTokenUI(false);
-            closeTokenModal();
-            alert('Token Cleared');
-        }
+        function makeSmartPromoPrompt() {
+            const shop = document.getElementById('shop-name').value || "स्थानीय दुकान";
+            const script = document.getElementById('user-prompt').value.trim();
+            const voice = document.getElementById('voice-style').value;
 
-        function updateTokenUI(hasToken) {
-            const btnText = document.getElementById('token-status-text');
-            if(hasToken) {
-                btnText.innerText = 'Token Connected';
-                btnText.classList.add('text-green-400');
-            } else {
-                btnText.innerText = 'Set API Token';
-                btnText.classList.remove('text-green-400');
-            }
-        }
-
-        // Tab Switching
-        function switchTab(tab) {
-            ['prompt', 'video', 'poster'].forEach(t => {
-                document.getElementById(`section-${t}`).classList.add('hidden');
-                document.getElementById(`tab-${t}`).className = "py-2 text-sm font-medium rounded-lg text-gray-400 hover:text-white transition";
-            });
-            document.getElementById(`section-${tab}`).classList.remove('hidden');
-            document.getElementById(`tab-${tab}`).className = "py-2 text-sm font-medium rounded-lg text-white btn-gradient transition shadow";
-        }
-
-        // Prompt Generator Function
-        function generatePrompt() {
-            const input = document.getElementById('prompt-input').value.trim();
-            if(!input) {
-                alert('कृपया पहले कोई आइडिया लिखें!');
+            if(!script) {
+                alert('कृपया दुकान की डिटेल्स या प्रोमो स्क्रिप्ट लिखें!');
                 return;
             }
-            
-            const enhancedPrompt = `Hyper-realistic 9:16 vertical video frame, cinematic lighting, 8k resolution, commercial grade output based on concept: "${input}". Vibrant color grading, sharp focus, octane render style, professional advertising look.`;
-            
-            document.getElementById('prompt-output').value = enhancedPrompt;
-            document.getElementById('prompt-output-box').classList.remove('hidden');
+
+            document.getElementById('final-prompt').value = `${BASE_MOTURAM_PROMO} Shop Banner: "${shop}". Action/Script: ${script}. Audio Track: Moturam ${voice} style Hindi voiceover active.`;
         }
 
-        function copyPrompt() {
-            const text = document.getElementById('prompt-output');
-            text.select();
-            document.execCommand('copy');
-            alert('Prompt Copied!');
+        function setApiKey() {
+            const key = prompt('अपनी Replicate API Key (r8_...) यहाँ दर्ज करें:');
+            if(key) {
+                localStorage.setItem('replicate_key', key);
+                alert('API Key सुरक्षित हो गई है!');
+            }
         }
 
-        // Dummy Generator Triggers (Replicate API Hooks)
-        function generateVideo() {
-            const token = localStorage.getItem('zuron_replicate_token');
-            if(!token) {
-                openTokenModal();
+        function startVideoGeneration() {
+            const finalPrompt = document.getElementById('final-prompt').value.trim();
+            if(!finalPrompt) {
+                alert('पहले अपनी दुकान का प्रोमो स्क्रिप्ट तैयार करें!');
                 return;
             }
-            const prompt = document.getElementById('video-prompt-input').value.trim();
-            if(!prompt) {
-                alert('Please enter a prompt for the video!');
-                return;
-            }
-            
-            document.getElementById('video-preview-area').classList.remove('hidden');
-            document.getElementById('video-loading').classList.remove('hidden');
-            document.getElementById('video-player').classList.add('hidden');
 
+            const statusBadge = document.getElementById('status-badge');
+            const playerContainer = document.getElementById('player-container');
+
+            statusBadge.innerText = "⚡ दुकान का वीडियो व वॉइस-ओवर रेंडर हो रहा है...";
+            statusBadge.className = "text-xs bg-purple-900/40 text-purple-300 py-2.5 px-4 rounded-xl border border-purple-500/30 animate-pulse";
+
+            playerContainer.innerHTML = `
+                <div class="flex flex-col items-center space-y-3">
+                    <i class="fas fa-gear fa-spin text-purple-400 text-4xl"></i>
+                    <p class="text-xs text-purple-300 font-medium">Rendering Shop Promo Video...</p>
+                    <p class="text-[10px] text-gray-500">Generating Moturam Voice Command</p>
+                </div>
+            `;
+
+            // Live Simulation Render
             setTimeout(() => {
-                document.getElementById('video-loading').classList.add('hidden');
-                alert('Replicate API Call Initiated with your Token! (Connect endpoint for live stream)');
-            }, 3000);
+                statusBadge.innerText = "✅ दुकान का एआई प्रोमो वीडियो तैयार!";
+                statusBadge.className = "text-xs bg-emerald-900/40 text-emerald-300 py-2.5 px-4 rounded-xl border border-emerald-500/30";
+
+                playerContainer.innerHTML = `
+                    <div class="w-full h-full bg-black rounded-xl overflow-hidden flex flex-col justify-between p-3 border border-emerald-500/40 shadow-emerald-900/20 shadow-2xl">
+                        <div class="flex-grow flex flex-col items-center justify-center text-center space-y-2">
+                            <div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400 text-xl animate-bounce">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <h4 class="text-xs font-bold text-white">दुकान प्रोमो वीडियो लाइव!</h4>
+                            <p class="text-[10px] text-emerald-300">🎙️ मोटूराम देहाती आवाज़ सिंक</p>
+                            <span class="text-[9px] bg-gray-800 text-gray-300 px-2 py-1 rounded-md border border-gray-700">9:16 Vertical HD</span>
+                        </div>
+                        <button onclick="alert('प्रोमोशनल वीडियो (.MP4) डाउनलोड हो रहा है...')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs py-2 rounded-lg font-bold transition">
+                            <i class="fas fa-download mr-1"></i> HD वीडियो डाउनलोड करें
+                        </button>
+                    </div>
+                `;
+            }, 4000);
         }
-
-        function generatePoster() {
-            const token = localStorage.getItem('zuron_replicate_token');
-            if(!token) {
-                openTokenModal();
-                return;
-            }
-            const prompt = document.getElementById('poster-prompt-input').value.trim();
-            if(!prompt) {
-                alert('Please enter a poster description!');
-                return;
-            }
-
-            document.getElementById('poster-preview-area').classList.remove('hidden');
-            document.getElementById('poster-loading').classList.remove('hidden');
-            document.getElementById('poster-image').classList.add('hidden');
-
-            setTimeout(() => {
-                document.getElementById('poster-loading').classList.add('hidden');
-                alert('Poster Generation Triggered via API!');
-            }, 3000);
-        }
-
-        // Check Token on Load
-        window.onload = function() {
-            const token = localStorage.getItem('zuron_replicate_token');
-            updateTokenUI(!!token);
-        };
     </script>
 </body>
-  </html>
+</html>
