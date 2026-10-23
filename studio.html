@@ -3,237 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zuron Studio - Local Business & Moturam AI</title>
+    <title>Zuron Studio AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #05070c;
-            color: #f3f4f6;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #1f1f1f;
+            font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
         }
-        .glass-card {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .chat-bubble-user {
+            background: #e8f0fe;
+            color: #1a73e8;
+            border-radius: 20px 20px 4px 20px;
         }
-        .btn-gradient {
-            background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%);
+        .chat-bubble-ai {
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border-radius: 20px 20px 20px 4px;
         }
-        .btn-gradient:hover {
-            background: linear-gradient(135deg, #7c3aed 0%, #c026d3 100%);
+        .floating-input-bar {
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 35px;
+        }
+        .preview-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 12px;
         }
     </style>
 </head>
-<body class="min-h-screen p-4 md:p-8 flex flex-col justify-between">
+<body class="min-h-screen flex flex-col justify-between p-3 md:p-6 max-w-xl mx-auto">
 
-    <!-- Top Navigation -->
-    <header class="max-w-6xl mx-auto w-full glass-card p-4 rounded-2xl flex justify-between items-center mb-6">
+    <!-- Top Minimal Navigation -->
+    <header class="flex justify-between items-center py-2 border-b border-gray-200 bg-white/80 backdrop-blur sticky top-0 z-10 px-2 rounded-2xl">
         <div class="flex items-center space-x-3">
-            <a href="index.html" class="w-10 h-10 rounded-xl bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-gray-300 transition">
+            <a href="index.html" class="w-9 h-9 rounded-full hover:bg-gray-100 flex items-center justify-center text-gray-700">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <div>
-                <h1 class="text-xl font-bold text-white flex items-center">
-                    Zuron Studio <span class="ml-2 text-[10px] bg-purple-900/60 text-purple-300 px-2.5 py-0.5 rounded-full border border-purple-500/30">Local Business Promo Engine</span>
-                </h1>
-                <p class="text-xs text-gray-400">9:16 Shop Promotional Video & Moturam Voice AI</p>
+                <h1 class="text-base font-bold text-gray-800">Zuron Studio AI</h1>
+                <p class="text-[10px] text-green-600 font-medium">● Image-to-Video Engine Active</p>
             </div>
         </div>
 
-        <button onclick="setApiKey()" class="text-xs bg-gray-800 hover:bg-gray-700 text-purple-300 px-3 py-2 rounded-xl border border-purple-500/30 transition">
-            <i class="fas fa-key mr-1"></i> API Key Setup
+        <button onclick="setApiKey()" class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-full flex items-center space-x-1">
+            <i class="fas fa-key text-yellow-600"></i>
+            <span>API Key</span>
         </button>
     </header>
 
-    <!-- Main Studio Content -->
-    <main class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-3 gap-6 flex-grow">
-
-        <!-- Controls Area (2 Columns) -->
-        <div class="lg:col-span-2 space-y-6">
-
-            <!-- Shop Promo Presets -->
-            <div class="glass-card p-6 rounded-3xl space-y-4 border-l-4 border-emerald-500">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-base font-bold text-white flex items-center">
-                        <i class="fas fa-store text-emerald-400 mr-2"></i> दुकान का प्रकार चुनें (Local Shop Presets)
-                    </h2>
-                    <span class="text-[10px] bg-emerald-900/50 text-emerald-300 px-2 py-0.5 rounded-md border border-emerald-500/30">1-Click Auto Promo</span>
-                </div>
-                <p class="text-xs text-gray-400">अपनी दुकान का प्रकार चुनें, एआई अपने आप प्रोमोशनल डायलॉग और सीन सेट कर देगा:</p>
-
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    <button onclick="applyShopPreset('medical')" class="p-3 bg-gray-900/80 hover:bg-gray-800 rounded-xl text-xs text-emerald-200 border border-emerald-500/20 text-center transition">
-                        💊 मेडिकल / जन औषधि
-                    </button>
-                    <button onclick="applyShopPreset('kirana')" class="p-3 bg-gray-900/80 hover:bg-gray-800 rounded-xl text-xs text-emerald-200 border border-emerald-500/20 text-center transition">
-                        🛒 किराना व सुपरस्टोर
-                    </button>
-                    <button onclick="applyShopPreset('beauty')" class="p-3 bg-gray-900/80 hover:bg-gray-800 rounded-xl text-xs text-emerald-200 border border-emerald-500/20 text-center transition">
-                        ✂️ सैलून व ब्यूटी पार्लर
-                    </button>
-                    <button onclick="applyShopPreset('mobile')" class="p-3 bg-gray-900/80 hover:bg-gray-800 rounded-xl text-xs text-emerald-200 border border-emerald-500/20 text-center transition">
-                        📱 मोबाइल व ई-मित्र
-                    </button>
-                </div>
+    <!-- Smart Chat Stream Area (कोई उलझन नहीं, साफ़ बातचीत) -->
+    <main id="chat-stream" class="flex-grow my-4 space-y-4 overflow-y-auto pb-24 px-1">
+        
+        <!-- Welcome Message -->
+        <div class="chat-bubble-ai p-4 max-w-[88%] space-y-2">
+            <div class="flex items-center space-x-2">
+                <div class="w-6 h-6 rounded-full bg-purple-600 text-white text-[10px] flex items-center justify-center font-bold">Z</div>
+                <span class="text-xs font-bold text-gray-700">Zuron AI Assistant</span>
             </div>
-
-            <!-- Custom Shop & Voice Script Writer -->
-            <div class="glass-card p-6 rounded-3xl space-y-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="text-xs font-bold text-gray-300 block mb-1">दुकान का नाम व ऑफर (Shop Details)</label>
-                        <input id="shop-name" type="text" placeholder="उदा: गुप्ता जी किराना स्टोर - 10% छूट" class="w-full bg-gray-900/90 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition">
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold text-gray-300 block mb-1">वॉइस ओवर मोड (Moturam Voice Command)</label>
-                        <select id="voice-style" class="w-full bg-gray-900/90 border border-gray-700 rounded-xl p-3 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition">
-                            <option value="funny">🎙️ मोटूराम देहाती कॉमेडी स्टाइल</option>
-                            <option value="professional">🎙️ प्रोफेशनल प्रोमोशनल वॉइस</option>
-                            <option value="energetic">🎙️ धमाकेदार डिस्काउंट ऑफर स्टाइल</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="text-xs font-bold text-gray-300 block mb-1">दुकान का प्रोमो सीन या स्क्रिप्ट (हिंदी में)</label>
-                    <textarea id="user-prompt" rows="3" placeholder="जैसे: मोटूराम दुकान के आगे खड़ा होकर बोल रहा है - अरे भाई राम-राम! सस्ती दवाइयाँ चाहिए तो सीधे मेडिकल स्टोर पर आओ..." class="w-full bg-gray-900/90 border border-gray-700 rounded-2xl p-4 text-sm text-gray-100 focus:outline-none focus:border-purple-500 transition"></textarea>
-                </div>
-
-                <div class="flex justify-between items-center">
-                    <button onclick="makeSmartPromoPrompt()" class="bg-gray-800 hover:bg-gray-700 text-purple-300 text-xs px-4 py-2.5 rounded-xl border border-purple-500/30 transition">
-                        <i class="fas fa-wand-magic-sparkles mr-1"></i> एआई प्रोमो स्क्रिप्ट में बदलें
-                    </button>
-                    <span class="text-[10px] text-gray-500">Aspect Ratio: 9:16 (Vertical Reel)</span>
-                </div>
-
-                <div>
-                    <label class="text-xs font-bold text-gray-400 block mb-1">फाइनल एआई वीडियो व ऑडियो प्रॉम्प्ट</label>
-                    <textarea id="final-prompt" rows="3" readonly class="w-full bg-black/60 border border-gray-800 rounded-2xl p-4 text-xs text-purple-300 font-mono focus:outline-none"></textarea>
-                </div>
-
-                <button onclick="startVideoGeneration()" class="w-full btn-gradient py-4 rounded-2xl font-bold text-sm text-white shadow-lg shadow-purple-500/20 flex items-center justify-center space-x-2 transition">
-                    <i class="fas fa-film"></i>
-                    <span>9:16 प्रोमोशनल एआई वीडियो रेंडर करें</span>
-                </button>
-            </div>
-
-        </div>
-
-        <!-- Video Preview & Audio Player Box -->
-        <div class="space-y-6">
-            <div class="glass-card p-6 rounded-3xl space-y-4 text-center h-full flex flex-col justify-between">
-                <div>
-                    <h3 class="text-sm font-bold text-gray-300 mb-4"><i class="fas fa-mobile-screen text-purple-400 mr-2"></i> 9:16 प्रोमो वीडियो प्लेयर</h3>
-                    
-                    <!-- Player Box -->
-                    <div id="player-container" class="w-full aspect-[9/16] max-w-[260px] mx-auto bg-gray-900/90 rounded-2xl border-2 border-dashed border-gray-800 flex flex-col items-center justify-center p-4 relative overflow-hidden shadow-2xl">
-                        <i class="fas fa-store text-4xl text-gray-700 mb-2"></i>
-                        <p class="text-xs text-gray-500">यहाँ दुकानदार का 9:16 एआई वीडियो और वॉइस-ओवर रेंडर होकर चलेगा</p>
-                    </div>
-                </div>
-
-                <div id="status-badge" class="text-xs bg-gray-900 text-amber-400 py-2.5 px-4 rounded-xl border border-gray-800 font-medium">
-                    प्रोमो इंजन रेडी है
-                </div>
-            </div>
+            <p class="text-xs text-gray-700 leading-relaxed">
+                प्रणाम भाई! अपनी दुकान (जैसे मेडिकल, किराना) की फोटो अटैच करें या बस बताएं कि कैसी रील्स वीडियो बनानी है। 
+                मैं फोटो और प्रॉम्प्ट के आधार पर तुरंत 9:16 प्रोमोशनल वीडियो रेंडर कर दूंगा!
+            </p>
         </div>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="text-center py-4 text-xs text-gray-600">
-        Zuron AI Studio • Local Business Automation Suite
-    </footer>
+    <!-- Floating Gemini-Style Input Container -->
+    <div class="fixed bottom-3 left-0 right-0 px-3 max-w-xl mx-auto">
+        
+        <!-- Image Preview Container (यदि यूज़र ने फोटो सेलेक्ट की हो) -->
+        <div id="image-preview-box" class="hidden mb-2 p-2 bg-white rounded-2xl border border-gray-200 flex items-center justify-between shadow-sm">
+            <div class="flex items-center space-x-3">
+                <img id="preview-img" src="" class="preview-thumb">
+                <div>
+                    <p class="text-xs font-bold text-gray-800">दुकान की फोटो अटैच हुई</p>
+                    <p class="text-[10px] text-gray-500">Video Generation Reference</p>
+                </div>
+            </div>
+            <button onclick="removeImage()" class="text-gray-400 hover:text-red-500 p-2">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
 
-    <!-- Script Logic -->
+        <!-- Input Bar -->
+        <div class="floating-input-bar p-2 flex items-center border border-gray-200 bg-white">
+            <!-- Hidden File Input -->
+            <input type="file" id="shop-image-input" accept="image/*" class="hidden" onchange="handleImageSelect(event)">
+            
+            <button onclick="document.getElementById('shop-image-input').click()" class="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center text-gray-600 transition">
+                <i class="fas fa-plus text-base"></i>
+            </button>
+            
+            <input type="text" id="user-prompt" placeholder="दुकान का नाम या वीडियो आइडिया लिखें..." class="w-full bg-transparent border-none text-xs md:text-sm px-2 text-gray-800 focus:outline-none">
+            
+            <button onclick="generateVideoResponse()" class="w-10 h-10 rounded-full bg-purple-600 text-white hover:bg-purple-700 flex items-center justify-center ml-1 shadow-md transition">
+                <i class="fas fa-paper-plane text-xs"></i>
+            </button>
+        </div>
+    </div>
+
     <script>
-        const BASE_MOTURAM_PROMO = "Moturam character, chubby comical Indian man in traditional outfit standing near shop counter, brightly lit local Indian shop background, highly detailed 3D render, 8k resolution, cinematic 9:16 vertical video.";
-
-        function applyShopPreset(type) {
-            const shopInput = document.getElementById('shop-name');
-            const promptBox = document.getElementById('user-prompt');
-
-            if(type === 'medical') {
-                shopInput.value = "जन औषधि एवं मेडिकल केंद्र";
-                promptBox.value = "अरे भाई! महंगी दवाइयों का चक्कर छोड़ो! हमारी मेडिकल दुकान पर पाओ 80% तक की छूट और असली दवाइयाँ।";
-            } else if(type === 'kirana') {
-                shopInput.value = "श्री राम किराना एवं सुपरस्टोर";
-                promptBox.value = "गाँव-शहर की सबसे ताज़ा राशन सामग्री, तेल, मसाले और डिस्काउंट का धमाका! आज ही पधारें।";
-            } else if(type === 'beauty') {
-                shopInput.value = "रॉयल हेयर सैलून व ब्यूटी पार्लर";
-                promptBox.value = "शादी-ब्याह और त्योहारों में पाना है शानदार लुक? हमारे सैलून में आएं और पाएँ 20% की विशेष छूट!";
-            } else if(type === 'mobile') {
-                shopInput.value = "डिजिटल मोबाइल व ई-मित्र सेवा";
-                promptBox.value = "नया मोबाइल, रिपेयरिंग और सभी ऑनलाइन फॉर्म भरने के लिए एक मात्र भरोसेमंद दुकान!";
-            }
-            makeSmartPromoPrompt();
-        }
-
-        function makeSmartPromoPrompt() {
-            const shop = document.getElementById('shop-name').value || "स्थानीय दुकान";
-            const script = document.getElementById('user-prompt').value.trim();
-            const voice = document.getElementById('voice-style').value;
-
-            if(!script) {
-                alert('कृपया दुकान की डिटेल्स या प्रोमो स्क्रिप्ट लिखें!');
-                return;
-            }
-
-            document.getElementById('final-prompt').value = `${BASE_MOTURAM_PROMO} Shop Banner: "${shop}". Action/Script: ${script}. Audio Track: Moturam ${voice} style Hindi voiceover active.`;
-        }
+        let selectedImageData = null;
 
         function setApiKey() {
-            const key = prompt('अपनी Replicate API Key (r8_...) यहाँ दर्ज करें:');
+            const key = prompt("अपनी Replicate API Key डालें:");
             if(key) {
-                localStorage.setItem('replicate_key', key);
-                alert('API Key सुरक्षित हो गई है!');
+                localStorage.setItem("zuron_api_key", key);
+                alert("API Key सफलतापूर्वक सेव हो गई!");
             }
         }
 
-        function startVideoGeneration() {
-            const finalPrompt = document.getElementById('final-prompt').value.trim();
-            if(!finalPrompt) {
-                alert('पहले अपनी दुकान का प्रोमो स्क्रिप्ट तैयार करें!');
-                return;
+        function handleImageSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    selectedImageData = e.target.result;
+                    document.getElementById('preview-img').src = selectedImageData;
+                    document.getElementById('image-preview-box').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
             }
+        }
 
-            const statusBadge = document.getElementById('status-badge');
-            const playerContainer = document.getElementById('player-container');
+        function removeImage() {
+            selectedImageData = null;
+            document.getElementById('shop-image-input').value = "";
+            document.getElementById('image-preview-box').classList.add('hidden');
+        }
 
-            statusBadge.innerText = "⚡ दुकान का वीडियो व वॉइस-ओवर रेंडर हो रहा है...";
-            statusBadge.className = "text-xs bg-purple-900/40 text-purple-300 py-2.5 px-4 rounded-xl border border-purple-500/30 animate-pulse";
+        function generateVideoResponse() {
+            const promptInput = document.getElementById('user-prompt');
+            const userText = promptInput.value.trim();
+            const chatStream = document.getElementById('chat-stream');
 
-            playerContainer.innerHTML = `
-                <div class="flex flex-col items-center space-y-3">
-                    <i class="fas fa-gear fa-spin text-purple-400 text-4xl"></i>
-                    <p class="text-xs text-purple-300 font-medium">Rendering Shop Promo Video...</p>
-                    <p class="text-[10px] text-gray-500">Generating Moturam Voice Command</p>
+            if (!userText && !selectedImageData) return;
+
+            // 1. User Message Render
+            let userMsgHtml = `
+                <div class="chat-bubble-user p-3.5 max-w-[85%] ml-auto space-y-2">
+                    ${selectedImageData ? `<img src="${selectedImageData}" class="w-full h-32 object-cover rounded-xl mb-2">` : ''}
+                    <p class="text-xs leading-relaxed font-medium">${userText || 'इस फोटो के आधार पर 9:16 प्रोमो वीडियो बनाओ'}</p>
                 </div>
             `;
+            chatStream.insertAdjacentHTML('beforeend', userMsgHtml);
 
-            // Live Simulation Render
-            setTimeout(() => {
-                statusBadge.innerText = "✅ दुकान का एआई प्रोमो वीडियो तैयार!";
-                statusBadge.className = "text-xs bg-emerald-900/40 text-emerald-300 py-2.5 px-4 rounded-xl border border-emerald-500/30";
+            // Clear Input
+            promptInput.value = "";
+            const currentImg = selectedImageData;
+            removeImage();
 
-                playerContainer.innerHTML = `
-                    <div class="w-full h-full bg-black rounded-xl overflow-hidden flex flex-col justify-between p-3 border border-emerald-500/40 shadow-emerald-900/20 shadow-2xl">
-                        <div class="flex-grow flex flex-col items-center justify-center text-center space-y-2">
-                            <div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400 text-xl animate-bounce">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <h4 class="text-xs font-bold text-white">दुकान प्रोमो वीडियो लाइव!</h4>
-                            <p class="text-[10px] text-emerald-300">🎙️ मोटूराम देहाती आवाज़ सिंक</p>
-                            <span class="text-[9px] bg-gray-800 text-gray-300 px-2 py-1 rounded-md border border-gray-700">9:16 Vertical HD</span>
-                        </div>
-                        <button onclick="alert('प्रोमोशनल वीडियो (.MP4) डाउनलोड हो रहा है...')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs py-2 rounded-lg font-bold transition">
-                            <i class="fas fa-download mr-1"></i> HD वीडियो डाउनलोड करें
-                        </button>
+            // 2. AI Processing Message
+            const aiMsgId = 'ai-msg-' + Date.now();
+            let aiMsgHtml = `
+                <div id="${aiMsgId}" class="chat-bubble-ai p-4 max-w-[88%] space-y-3">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-6 h-6 rounded-full bg-purple-600 text-white text-[10px] flex items-center justify-center font-bold">Z</div>
+                        <span class="text-xs font-bold text-gray-700">Zuron AI Video Generator</span>
                     </div>
+                    <div class="flex items-center space-x-2 text-xs text-purple-700 font-medium">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <span>आपकी फोटो व प्रॉम्प्ट को समझकर 9:16 वीडियो रेंडर हो रही है...</span>
+                    </div>
+                </div>
+            `;
+            chatStream.insertAdjacentHTML('beforeend', aiMsgHtml);
+            chatStream.scrollTop = chatStream.scrollHeight;
+
+            // 3. Simulate Smart Video Generation Response
+            setTimeout(() => {
+                const aiBox = document.getElementById(aiMsgId);
+                aiBox.innerHTML = `
+                    <div class="flex items-center space-x-2 mb-2">
+                        <div class="w-6 h-6 rounded-full bg-purple-600 text-white text-[10px] flex items-center justify-center font-bold">Z</div>
+                        <span class="text-xs font-bold text-gray-700">Zuron AI Video Generator</span>
+                    </div>
+                    <p class="text-xs text-gray-700 mb-2">लीजिए भाई! आपकी दुकान का 9:16 प्रोमोशनल एआई वीडियो (मोटूराम देहाती वॉयस-ओवर के साथ) तैयार है:</p>
+                    
+                    <div class="rounded-xl overflow-hidden bg-black border border-gray-200 shadow">
+                        <video controls class="w-full h-64 object-cover">
+                            <source src="https://assets.mixkit.co/videos/preview/mixkit-vertical-shot-of-a-pharmacy-store-42938-large.mp4" type="video/mp4">
+                            आपका ब्राउज़र वीडियो सपोर्ट नहीं करता।
+                        </video>
+                    </div>
+
+                    <a href="https://assets.mixkit.co/videos/preview/mixkit-vertical-shot-of-a-pharmacy-store-42938-large.mp4" download class="mt-2 bg-purple-600 text-white text-xs py-2 px-4 rounded-xl flex items-center justify-center space-x-2 font-medium hover:bg-purple-700 transition">
+                        <i class="fas fa-download"></i>
+                        <span>HD 9:16 वीडियो डाउनलोड करें</span>
+                    </a>
                 `;
-            }, 4000);
+                chatStream.scrollTop = chatStream.scrollHeight;
+            }, 3000);
         }
     </script>
 </body>
-</html>
+    </html>
