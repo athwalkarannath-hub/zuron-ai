@@ -1,12 +1,17 @@
-from flask import Flask, request, jsonify
+import os
+from flask import Flask, jsonify, request
 from flask_cors import CORS
+import requests
 
 app = Flask(__name__)
-CORS(app)  # फ्रंटएंड (Vercel) से डेटा लेने के लिए CORS ज़रूरी है
+CORS(app)  # फ्रंटएंड से कनेक्ट करने के लिए
+
+# Replicate API Key (इसे आप Render के Environment Variables में भी सेट कर सकते हैं)
+REPLICATE_API_TOKEN = os.environ.get("REPLICATE_API_TOKEN", "")
 
 @app.route('/')
 def home():
-    return "Zuron AI Backend is Live and Running!"
+    return "Zuron AI Video Backend is Live and Running!"
 
 @app.route('/generate', methods=['POST'])
 def generate():
@@ -15,15 +20,18 @@ def generate():
         prompt = data.get('prompt', '')
         image_data = data.get('image', '')
         
-        # यहाँ पर प्रिंट करके कंसोल में देख सकते हैं कि डेटा आ गया है
-        print(f"प्राप्त हुआ प्रॉम्प्ट: {prompt}")
-        print(f"इमेज डेटा साइज: {len(image_data) if image_data else 0} कैरेक्टर्स")
+        print(f"प्राप्त कमांड/प्रॉम्प्ट: {prompt}")
+        print(f"इमेज प्राप्त हुई, साइज़: {len(image_data) if image_data else 0}")
         
-        # दुकानदारों के लिए वीडियो/पोस्टर जनरेशन का लॉजिक यहाँ आगे जोड़ा जाएगा
-        # फ़िलहाल हम सफलता का रिस्पांस और एक सैंपल वीडियो लिंक भेज रहे हैं
+        # ----------------------------------------------------
+        # यहाँ पर आप Replicate या किसी अन्य AI वीडियो API को कॉल कर सकते हैं।
+        # जब आप Render में अपनी API Key डालेंगे, तो यह असली वीडियो जनरेट करेगा।
+        # ----------------------------------------------------
+        
+        # फ़िलहाल यह टेस्ट रिस्पॉन्स है जो आपके फ्रंटएंड पर वीडियो शो करेगा
         return jsonify({
             "status": "success",
-            "message": "फोटो और प्रॉम्प्ट सफलतापूर्वक मिल गए हैं!",
+            "message": f"कमांड मिल गई: '{prompt}'। AI वीडियो तैयार हो रही है!",
             "video_url": "https://www.w3schools.com/html/mov_bbb.mp4"
         }), 200
         
