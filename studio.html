@@ -61,7 +61,7 @@
     <script>
         let selectedImageData = null;
 
-        // Handle Image Selection & Open Gallery directly
+        // Handle Image Selection
         function handleImageSelect(event) {
             const file = event.target.files[0];
             if (file) {
@@ -85,7 +85,7 @@
             recognition.start();
         }
 
-        // Process and Send to Backend
+        // Process and Send to Backend & Show in Chat
         async function processUserMessage() {
             const promptText = document.getElementById('user-prompt').value;
             if (!promptText && !selectedImageData) {
@@ -93,22 +93,73 @@
                 return;
             }
 
-            alert('वीडियो प्रोसेसिंग शुरू हो रही है...');
+            const chatContainer = document.querySelector('.flex-1.overflow-y-auto');
+
+            // 1. चैट में यूजर का मैसेज (फोटो + प्रॉम्प्ट) जोड़ें
+            let userMsgHTML = `<div class="flex justify-end space-x-2 my-2">
+                <div class="bg-purple-100 p-3 rounded-2xl shadow-sm border max-w-[80%] text-sm text-gray-800 space-y-2">`;
             
+            if (selectedImageData) {
+                userMsgHTML += `<img src="${selectedImageData}" class="w-32 h-32 object-cover rounded-xl">`;
+            }
+            if (promptText) {
+                userMsgHTML += `<p>${promptText}</p>`;
+            }
+            userMsgHTML += `</div></div>`;
+
+            chatContainer.insertAdjacentHTML('beforeend', userMsgHTML);
+
+            // इनपुट और प्रीव्यू को खाली करें
+            document.getElementById('user-prompt').value = '';
+            document.getElementById('image-preview-container').classList.add('hidden');
+            const currentImgData = selectedImageData;
+            selectedImageData = null;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // 2. लोडिंग मैसेज दिखाएं
+            let loadingId = 'loading-' + Date.now();
+            let loadingHTML = `<div id="${loadingId}" class="flex items-start space-x-2 my-2">
+                <div class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">Z</div>
+                <div class="bg-white p-3 rounded-2xl shadow-sm border max-w-[80%] text-sm text-gray-800">
+                    वीडियो प्रोसेस हो रही है, कृपया इंतज़ार करें...
+                </div>
+            </div>`;
+            chatContainer.insertAdjacentHTML('beforeend', loadingHTML);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // 3. बैकएंड को डेटा भेजें
             try {
                 const response = await fetch('https://zuron-ai.onrender.com/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt: promptText, image: selectedImageData })
+                    body: JSON.stringify({ prompt: promptText, image: currentImgData })
                 });
                 const data = await response.json();
-                console.log(data);
-                alert('सफलतापूर्वक कनेक्ट हो गया!');
+                
+                // लोडिंग हटाकर AI का जवाब दिखाएं
+                document.getElementById(loadingId).remove();
+                let aiMsgHTML = `<div class="flex items-start space-x-2 my-2">
+                    <div class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">Z</div>
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border max-w-[80%] text-sm text-gray-800">
+                        ${data.message || 'सफलतापूर्वक प्रोसेस हो गया है!'}
+                    </div>
+                </div>`;
+                chatContainer.insertAdjacentHTML('beforeend', aiMsgHTML);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+
             } catch (error) {
                 console.error(error);
-                alert('कनेक्शन में दिक्कत आई है!');
+                document.getElementById(loadingId).remove();
+                let errorMsgHTML = `<div class="flex items-start space-x-2 my-2">
+                    <div class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">Z</div>
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border max-w-[80%] text-sm text-red-600">
+                        कनेक्शन में दिक्कत आई है, कृपया बैकएंड चेक करें।
+                    </div>
+                </div>`;
+                chatContainer.insertAdjacentHTML('beforeend', errorMsgHTML);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
             }
         }
     </script>
 </body>
-    </html>
+                </html>
