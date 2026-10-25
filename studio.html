@@ -30,7 +30,7 @@
     <!-- Main Input Bar with Attached Image Preview -->
     <div class="p-3 bg-white border-t flex flex-col space-y-2 shadow-lg">
         
-        <!-- Attached Image Preview Chip (जैसे स्क्रीनशॉट में है) -->
+        <!-- Attached Image Preview Chip -->
         <div id="image-preview-container" class="hidden flex items-center space-x-2 px-2">
             <div class="relative inline-block">
                 <img id="image-preview" class="w-14 h-14 object-cover rounded-xl border shadow-sm" alt="Preview">
@@ -99,7 +99,7 @@
             recognition.start();
         }
 
-        // Process and Send to Backend & Show in Chat
+        // Process and Send to Backend & Show Video
         async function processUserMessage() {
             const promptText = document.getElementById('user-prompt').value;
             if (!promptText && !selectedImageData) {
@@ -133,7 +133,7 @@
             let loadingHTML = `<div id="${loadingId}" class="flex items-start space-x-2 my-2">
                 <div class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">Z</div>
                 <div class="bg-white p-3 rounded-2xl shadow-sm border max-w-[80%] text-sm text-gray-800">
-                    कमांड प्रोसेस हो रही है, कृपया इंतज़ार करें...
+                    AI वीडियो तैयार हो रही है, कृपया 20-30 सेकंड इंतज़ार करें...
                 </div>
             </div>`;
             chatContainer.insertAdjacentHTML('beforeend', loadingHTML);
@@ -151,10 +151,14 @@
                 document.getElementById(loadingId).remove();
                 let aiMsgHTML = `<div class="flex items-start space-x-2 my-2">
                     <div class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">Z</div>
-                    <div class="bg-white p-3 rounded-2xl shadow-sm border max-w-[80%] text-sm text-gray-800">
-                        ${data.message || 'सफलतापूर्वक प्रोसेस हो गया है!'}
-                    </div>
-                </div>`;
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border max-w-[80%] text-sm text-gray-800 space-y-2">
+                        <p>${data.message || 'सफलतापूर्वक प्रोसेस हो गया है!'}</p>`;
+                
+                if (data.video_url) {
+                    aiMsgHTML += `<video src="${data.video_url}" controls autoplay loop class="w-full rounded-xl mt-2 shadow-md"></video>`;
+                }
+
+                aiMsgHTML += `</div></div>`;
                 chatContainer.insertAdjacentHTML('beforeend', aiMsgHTML);
                 chatContainer.scrollTop = chatContainer.scrollHeight;
 
@@ -166,4 +170,4 @@
         }
     </script>
 </body>
-</html>
+    </html>
