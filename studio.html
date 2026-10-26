@@ -139,9 +139,9 @@
             chatContainer.insertAdjacentHTML('beforeend', loadingHTML);
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
-            // 3. बैकएंड को डेटा भेजें (नया टनल लिंक पहले से जुड़ा हुआ है)
+            // 3. बैकएंड को डेटा भेजें (सही टनल लिंक के साथ)
             try {
-                const response = await fetch('https://performed-clinton-mouse-alice.trycloudflare.com/generate', {
+                const response = await fetch('https://performed-clinton-mice.trycloudflare.com/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ prompt: promptText, image: selectedImageData })
