@@ -14,7 +14,7 @@
         <div class="flex items-center space-x-2">
             <span class="font-bold text-lg text-purple-600">Zuron Studio AI</span>
         </div>
-        <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full font-medium">Pro Studio</span>
+        <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full font-medium">Local Server Pro</span>
     </header>
 
     <!-- Chat Container -->
@@ -22,7 +22,7 @@
         <div class="flex items-start space-x-2">
             <div class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">Z</div>
             <div class="bg-white p-3 rounded-2xl shadow-sm border max-w-[80%] text-sm text-gray-800">
-                प्रणाम भाई! नीचे दिए गए <b>+ (प्लस)</b> बटन से अपनी फोटो चुनें और साथ में कमांड लिखकर भेजें।
+                प्रणाम भाई! नीचे दिए गए <b>+ (प्लस)</b> बटन से अपनी फोटो चुनें और साथ में कमांड लिखकर भेजें। आपका लोकल सर्वर वीडियो तैयार करेगा।
             </div>
         </div>
     </div>
@@ -109,7 +109,7 @@
 
             const chatContainer = document.querySelector('.flex-1.overflow-y-auto');
 
-            // 1. चैट में यूजर का मैसेज (फोटो + कमांड) जोड़ें
+            // 1. चैट में यूजर का मैसेज जोड़ें
             let userMsgHTML = `<div class="flex justify-end space-x-2 my-2">
                 <div class="bg-purple-100 p-3 rounded-2xl shadow-sm border max-w-[80%] text-sm text-gray-800 space-y-2">`;
             
@@ -123,7 +123,7 @@
 
             chatContainer.insertAdjacentHTML('beforeend', userMsgHTML);
 
-            // इनपुट और प्रीव्यू को खाली करें
+            // इनपुट और प्रीव्यू साफ करें
             document.getElementById('user-prompt').value = '';
             removeSelectedImage();
             chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -133,26 +133,27 @@
             let loadingHTML = `<div id="${loadingId}" class="flex items-start space-x-2 my-2">
                 <div class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">Z</div>
                 <div class="bg-white p-3 rounded-2xl shadow-sm border max-w-[80%] text-sm text-gray-800">
-                    AI वीडियो तैयार हो रही है, कृपया कुछ सेकंड इंतज़ार करें...
+                    लोकल सर्वर पर वीडियो प्रोसेस हो रही है, कृपया इंतज़ार करें...
                 </div>
             </div>`;
             chatContainer.insertAdjacentHTML('beforeend', loadingHTML);
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
-            // 3. बैकएंड को डेटा भेजें
+            // 3. बैकएंड को डेटा भेजें (आपका क्लाउडफ्लेयर टनल लिंक)
             try {
-                const response = await fetch('https://zuron-ai.onrender.com/generate', {
+                const response = await fetch('https://hay-beer-bless-reporter.trycloudflare.com/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ prompt: promptText, image: selectedImageData })
                 });
+                
                 const data = await response.json();
                 
                 document.getElementById(loadingId).remove();
                 let aiMsgHTML = `<div class="flex items-start space-x-2 my-2">
                     <div class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">Z</div>
                     <div class="bg-white p-3 rounded-2xl shadow-sm border max-w-[80%] text-sm text-gray-800 space-y-2">
-                        <p>${data.message || 'सफलतापूर्वक प्रोसेस हो गया है!'}</p>`;
+                        <p>${data.message || 'सफलतापूर्वक तैयार हो गया है!'}</p>`;
                 
                 if (data.video_list && data.video_list.length > 0) {
                     data.video_list.forEach((vidUrl, index) => {
@@ -170,9 +171,9 @@
             } catch (error) {
                 console.error(error);
                 document.getElementById(loadingId).remove();
-                alert('कनेक्शन में दिक्कत आई है!');
+                alert('सर्वर से कनेक्ट होने में दिक्कत आ रही है। जांच लें कि Termux और टनल चालू है या नहीं!');
             }
         }
     </script>
 </body>
-</html>
+                    </html>
