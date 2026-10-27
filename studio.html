@@ -3,138 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zuron AI Studio</title>
+    <title>Zuron AI Studio - Pro Dashboard</title>
     <style>
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0e0f12;
-            color: #f3f4f6;
-            margin: 0;
+            background-color: #131314;
+            color: #e3e3e3;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        /* साइडबार स्टाइल */
+        sidebar {
+            width: 260px;
+            background: #1e1f20;
+            border-right: 1px solid #333537;
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+        }
+        .new-chat-btn {
+            background: #282a2c;
+            color: #c4b5fd;
+            border: 1px solid #444746;
+            padding: 12px;
+            border-radius: 24px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: background 0.2s;
+        }
+        .new-chat-btn:hover { background: #333538; }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        header {
+            padding: 16px 24px;
+            background: #1e1f20;
+            border-bottom: 1px solid #333537;
+            font-size: 18px;
+            font-weight: bold;
+            color: #c4b5fd;
+        }
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
             padding: 20px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
+            gap: 20px;
+            max-width: 900px;
             width: 100%;
-            max-width: 600px;
-            background: #181a20;
-            padding: 24px;
+            margin: 0 auto;
+        }
+        .message {
+            padding: 16px 20px;
             border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-            border: 1px solid #2d3139;
+            max-width: 85%;
+            line-height: 1.6;
+            font-size: 15px;
         }
-        h2 {
-            text-align: center;
-            color: #a78bfa;
-            margin-bottom: 8px;
-        }
-        p.sub {
-            text-align: center;
-            color: #9ca3af;
-            font-size: 14px;
-            margin-bottom: 24px;
-        }
-        .input-group {
-            margin-bottom: 16px;
-        }
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 14px;
-            color: #d1d5db;
-        }
-        textarea, input[type="file"] {
-            width: 100%;
-            padding: 12px;
-            background-color: #21242d;
+        .user-message {
+            background: #2b2c2f;
             color: #fff;
-            border: 1px solid #374151;
-            border-radius: 10px;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .ai-message {
+            background: #1e1f20;
+            color: #e3e3e3;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            border: 1px solid #333537;
+        }
+        .input-area {
+            padding: 20px;
+            background: #131314;
+            display: flex;
+            justify-content: center;
+        }
+        .input-box {
+            background: #1e1f20;
+            border: 1px solid #444746;
+            border-radius: 28px;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+            gap: 14px;
+        }
+        .input-box textarea {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #fff;
             font-size: 15px;
             outline: none;
             resize: none;
+            max-height: 120px;
+            padding: 6px 0;
         }
-        textarea:focus, input:focus {
-            border-color: #8b5cf6;
-        }
-        button {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
+        .file-label {
             cursor: pointer;
-            transition: opacity 0.2s;
-            margin-top: 10px;
+            color: #a8c7fa;
+            font-size: 22px;
         }
-        button:hover {
-            opacity: 0.9;
-        }
-        #status {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 15px;
-            color: #34d399;
+        .send-btn {
+            background: #8ab4f8;
+            color: #131314;
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         video {
             width: 100%;
-            margin-top: 16px;
+            margin-top: 12px;
             border-radius: 12px;
-            display: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        }
+        #fileNameDisplay {
+            font-size: 12px;
+            color: #34d399;
+            margin-top: 4px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            padding: 0 20px;
+        }
+        @media(max-width: 768px) {
+            sidebar { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>Zuron AI Studio</h2>
-        <p class="sub">जेमिनी स्टाइल स्मार्ट एआई वीडियो जनरेटर</p>
+    <sidebar>
+        <div class="new-chat-btn" onclick="location.reload()">+ नई चैट शुरू करें</div>
+        <div style="font-size: 13px; color: #9ca3af; margin-top: 10px;">हाल की जनरेशन</div>
+        <div style="font-size: 14px; color: #e3e3e3; margin-top: 8px; padding: 6px; background: #282a2c; border-radius: 8px;">🎬 रूरल ड्रामा वीडियो</div>
+    </sidebar>
 
-        <div class="input-group">
-            <label>वॉयसओवर / प्रॉम्प्ट (जो वीडियो में दिखाना या बोलना है):</label>
-            <textarea id="promptInput" rows="3" placeholder="यहाँ अपना प्रॉम्प्ट या स्क्रिप्ट लिखें..."></textarea>
+    <div class="main-content">
+        <header>Zuron AI Studio - Pro Dashboard</header>
+
+        <div class="chat-container" id="chatContainer">
+            <div class="message ai-message">
+                नमस्ते! मैं Zuron AI हूँ। नीचे चैट बॉक्स में अपनी वीडियो स्क्रिप्ट या प्रॉम्प्ट लिखें, गैलरी से फोटो जोड़ें, और अपनी मनपसंद एआई वीडियो तैयार करें!
+            </div>
         </div>
 
-        <div class="input-group">
-            <label>गैलरी से फोटो चुनें (वैकल्पिक):</label>
-            <input type="file" id="imageFile" accept="image/*">
+        <div id="fileNameDisplay"></div>
+
+        <div class="input-area">
+            <div class="input-box">
+                <label for="imageFile" class="file-label" title="फोटो जोड़ें">📎</label>
+                <input type="file" id="imageFile" accept="image/*" style="display:none;" onchange="showFileName()">
+                
+                <textarea id="promptInput" rows="1" placeholder="यहाँ अपनी वीडियो स्क्रिप्ट या प्रॉम्प्ट लिखें..."></textarea>
+                
+                <button class="send-btn" onclick="generateVideo()">➔</button>
+            </div>
         </div>
-
-        <button onclick="generateVideo()">वीडियो जनरेट करें</button>
-
-        <div id="status"></div>
-        <video id="videoOutput" controls></video>
     </div>
 
     <script>
-        // आपका नया टनल लिंक यहाँ जुड़ा हुआ है
-        const BACKEND_URL = "https://san-gathering-hamburg-bills.trycloudflare.com";
+        // आपका ताजा क्लाउडफ्लेयर टनल लिंक यहाँ अपडेट किया गया है
+        const BACKEND_URL = "https://shipment-lessons-gained-highways.trycloudflare.com";
+
+        function showFileName() {
+            const fileInput = document.getElementById('imageFile');
+            const display = document.getElementById('fileNameDisplay');
+            if (fileInput.files.length > 0) {
+                display.innerText = "📎 चयनित फाइल: " + fileInput.files[0].name;
+            } else {
+                display.innerText = "";
+            }
+        }
 
         async function generateVideo() {
-            const prompt = document.getElementById('promptInput').value;
+            const promptInput = document.getElementById('promptInput');
             const imageFile = document.getElementById('imageFile').files[0];
-            const status = document.getElementById('status');
-            const videoOutput = document.getElementById('videoOutput');
+            const chatContainer = document.getElementById('chatContainer');
+            const display = document.getElementById('fileNameDisplay');
 
-            if (!prompt && !imageFile) {
-                status.style.color = "#f87171";
-                status.innerText = "कृपया कम से कम प्रॉम्प्ट लिखें या फोटो चुनें!";
-                return;
+            const promptText = promptInput.value.trim();
+            if (!promptText && !imageFile) return;
+
+            // यूजर मैसेज चैट में जोड़ें
+            let userHtml = `<div class="message user-message">${promptText}`;
+            if (imageFile) {
+                userHtml += `<br><small>[तस्वीर संलग्न: ${imageFile.name}]</small>`;
             }
+            userHtml += `</div>`;
+            chatContainer.innerHTML += userHtml;
 
-            status.style.color = "#38bdf8";
-            status.innerText = "वीडियो प्रोसेस हो रहा है, प्रतीक्षा करें...";
-            videoOutput.style.display = 'none';
+            promptInput.value = "";
+            display.innerText = "";
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            // AI लोडिंग मैसेज
+            const loadingId = 'loading_' + Date.now();
+            chatContainer.innerHTML += `<div class="message ai-message" id="${loadingId}">एआई वीडियो प्रोसेस हो रही है, कृपया प्रतीक्षा करें...</div>`;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
 
             const formData = new FormData();
-            if (prompt) formData.append('prompt', prompt);
+            if (promptText) formData.append('prompt', promptText);
             if (imageFile) formData.append('image', imageFile);
 
             try {
@@ -144,23 +231,22 @@
                 });
 
                 const data = await response.json();
-                
+                const loadingElement = document.getElementById(loadingId);
+
                 if (response.ok) {
-                    status.style.color = "#34d399";
-                    status.innerText = data.message || "सफलतापूर्वक तैयार हो गया!";
+                    let aiHtml = `${data.message || "वीडियो सफलतापर्वक तैयार हो गई!"}`;
                     if (data.video_url) {
-                        videoOutput.src = data.video_url;
-                        videoOutput.style.display = 'block';
-                        videoOutput.play();
+                        aiHtml += `<video controls src="${data.video_url}" autoplay></video>`;
                     }
+                    loadingElement.innerHTML = aiHtml;
                 } else {
-                    status.style.color = "#f87171";
-                    status.innerText = "एरर: " + (data.detail || "कुछ गलत हो गया");
+                    loadingElement.innerHTML = "एरर: " + (data.detail || "कुछ गलत हो गया");
                 }
             } catch (error) {
-                status.style.color = "#f87171";
-                status.innerText = "सर्वर से कनेक्ट करने में विफल: " + error.message;
+                const loadingElement = document.getElementById(loadingId);
+                loadingElement.innerHTML = "सर्वर से कनेक्ट करने में विफल: " + error.message;
             }
+            chatContainer.scrollTop = chatContainer.scrollHeight;
         }
     </script>
 
