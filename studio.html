@@ -12,118 +12,142 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #0f172a;
-            color: #f8fafc;
+            background-color: #131314;
+            color: #e3e3e3;
             display: flex;
             height: 100vh;
             overflow: hidden;
         }
-        /* साइडबार मेनू */
+        /* साइड मेनू (जेमिनी स्टाइल ड्रावर) */
         .sidebar {
             width: 280px;
-            background: #1e293b;
+            background: #1e1f20;
             display: flex;
             flex-direction: column;
-            padding: 20px;
-            border-right: 1px solid #334155;
+            padding: 15px;
+            border-right: 1px solid #2b2d30;
+            position: fixed;
+            height: 100%;
+            left: -280px;
             transition: 0.3s ease;
+            z-index: 1000;
         }
-        .sidebar h2 {
-            font-size: 18px;
-            color: #38bdf8;
+        .sidebar.open {
+            left: 0;
+        }
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
         }
-        .menu-btn {
-            background: #0f172a;
-            color: #cbd5e1;
-            border: 1px solid #475569;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: left;
+        .sidebar-header h2 {
+            font-size: 16px;
+            color: #a8c7fa;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            color: #e3e3e3;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .menu-item {
+            padding: 12px 15px;
+            border-radius: 25px;
             cursor: pointer;
             font-size: 14px;
-            margin-bottom: 12px;
+            color: #c4c7c5;
+            margin-bottom: 8px;
             transition: 0.2s;
         }
-        .menu-btn:hover, .menu-btn.active {
-            background: #0284c7;
+        .menu-item:hover, .menu-item.active {
+            background: #282a2c;
             color: #fff;
-            border-color: #0284c7;
         }
 
-        /* मुख्य वर्कस्पेस एरिया */
+        /* मुख्य स्क्रीन लेआउट */
         .main-container {
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: #0f172a;
+            background: #131314;
             height: 100%;
+            width: 100%;
         }
         .top-navbar {
-            padding: 15px 25px;
-            background: #1e293b;
-            border-bottom: 1px solid #334155;
-            font-size: 18px;
-            font-weight: bold;
-            color: #38bdf8;
+            padding: 15px 20px;
+            background: #1e1f20;
+            border-bottom: 1px solid #2b2d30;
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        
-        /* स्टेप-by-स्टेप कंटेंट सेक्शन */
+        .hamburger {
+            background: none;
+            border: none;
+            color: #e3e3e3;
+            font-size: 22px;
+            cursor: pointer;
+        }
+        .app-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #e3e3e3;
+        }
+
+        /* कंटेंट एरिया */
         .content-body {
             flex: 1;
-            padding: 30px;
+            padding: 20px;
             overflow-y: auto;
             display: flex;
             justify-content: center;
             align-items: flex-start;
         }
-        .step-card {
-            background: #1e293b;
-            padding: 30px;
+        .card {
+            background: #1e1f20;
+            padding: 20px;
             border-radius: 16px;
             width: 100%;
             max-width: 600px;
-            border: 1px solid #334155;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 1px solid #2b2d30;
         }
-        .step-card h3 {
-            color: #38bdf8;
-            margin-bottom: 20px;
-            font-size: 20px;
+        .card h3 {
+            color: #a8c7fa;
+            margin-bottom: 15px;
+            font-size: 18px;
         }
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         label {
             display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #94a3b8;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: #9aa0a6;
         }
         input[type="text"], input[type="file"] {
             width: 100%;
             padding: 12px;
             border-radius: 8px;
-            border: 1px solid #475569;
-            background: #0f172a;
+            border: 1px solid #444746;
+            background: #131314;
             color: #fff;
             font-size: 14px;
             outline: none;
         }
         .action-btn {
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #0284c7, #2563eb);
-            color: white;
+            padding: 12px;
+            background: #a8c7fa;
+            color: #131314;
             border: none;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
+            margin-top: 5px;
         }
         .action-btn:hover {
             opacity: 0.9;
@@ -132,47 +156,52 @@
             display: none;
             text-align: center;
             margin-top: 15px;
-            color: #facc15;
-            font-weight: 500;
+            color: #fde047;
+            font-size: 14px;
         }
         #videoPlayerContainer {
             display: none;
-            margin-top: 20px;
+            margin-top: 15px;
             text-align: center;
         }
         video {
             width: 100%;
-            max-height: 350px;
-            border-radius: 10px;
-            border: 1px solid #38bdf8;
-            margin-top: 10px;
+            max-height: 300px;
+            border-radius: 8px;
+            border: 1px solid #a8c7fa;
+            margin-top: 8px;
         }
     </style>
 </head>
 <body>
 
-    <!-- साइडबार मेनू -->
-    <div class="sidebar">
-        <h2>✨ Zuron Studio</h2>
-        <button class="menu-btn active" onclick="switchTab('generator')">🎬 स्टेप 1: एआई वीडियो जनरेटर</button>
-        <button class="menu-btn" onclick="switchTab('files')">📂 स्टेप 2: सेव की गई फाइल्स</button>
-        <button class="menu-btn" onclick="switchTab('settings')">⚙️ स्टेप 3: सर्वर सेटिंग्स</button>
+    <!-- साइड मेनू (ड्रावर) -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>✨ Zuron Studio</h2>
+            <button class="close-btn" onclick="toggleSidebar()">✕</button>
+        </div>
+        <div class="menu-item active" onclick="switchTab('generator')">🎬 एआई वीडियो जनरेटर</div>
+        <div class="menu-item" onclick="switchTab('files')">📂 सेव की गई फाइल्स</div>
+        <div class="menu-item" onclick="switchTab('settings')">⚙️ सर्वर सेटिंग्स</div>
     </div>
 
     <!-- मुख्य स्क्रीन -->
     <div class="main-container">
+        <!-- टॉप नेविगेशन बार (तीन लाइनों वाला बटन) -->
         <div class="top-navbar">
-            <span id="navTitle">एआई वीडियो जनरेटर पाइपलाइन</span>
+            <button class="hamburger" onclick="toggleSidebar()">☰</button>
+            <span class="app-title" id="navTitle">एआई वीडियो जनरेटर पाइपलाइन</span>
         </div>
         
         <div class="content-body">
-            <!-- स्टेप 1: वीडियो जनरेटर कार्ड -->
-            <div class="step-card" id="generatorTab">
+            <!-- जनरेटर टैब -->
+            <div class="card" id="generatorTab">
                 <h3>वीडियो जनरेशन स्टूडियो</h3>
                 
                 <div class="form-group">
                     <label>वीडियो का प्रॉम्प्ट (Prompt):</label>
-                    <input type="text" id="promptInput" placeholder="उदा: Cinematic landscape drone shot 9:16...">
+                    <input type="text" id="promptInput" placeholder="उदा: Cinematic sunset drone shot 9:16">
                 </div>
 
                 <div class="form-group">
@@ -185,46 +214,46 @@
                 <div id="statusLoading">⏳ सर्वर वीडियो प्रोसेस कर रहा है, कृपया इंतज़ार करें...</div>
 
                 <div id="videoPlayerContainer">
-                    <label style="margin-top: 15px;">आपकी तैयार वीडियो:</label>
+                    <label>आपकी तैयार वीडियो:</label>
                     <video id="videoPlayer" controls autoplay loop></video>
                 </div>
             </div>
 
-            <!-- स्टेप 2: फाइल्स टैब (शुरुआत में खाली/साफ) -->
-            <div class="step-card" id="filesTab" style="display: none;">
+            <!-- फाइल्स टैब -->
+            <div class="card" id="filesTab" style="display: none;">
                 <h3>सेव की गई मीडिया फाइल्स</h3>
-                <p style="color: #94a3b8; margin-top: 10px;">यहाँ आपके Termux के `uploads/` फोल्डर में सेव सभी फाइल्स दिखेंगी।</p>
+                <p style="color: #9aa0a6; margin-top: 10px; font-size: 14px;">Termux के uploads/ फोल्डर की फाइल्स यहाँ दिखेंगी।</p>
             </div>
 
-            <!-- स्टेप 3: सेटिंग्स टैब -->
-            <div class="step-card" id="settingsTab" style="display: none;">
+            <!-- सेटिंग्स टैब -->
+            <div class="card" id="settingsTab" style="display: none;">
                 <h3>सर्वर और टनल सेटिंग्स</h3>
-                <p style="color: #94a3b8; margin-top: 10px;">क्लाउडफ्लेयर लाइव लिंक: <br><code style="color: #38bdf8;">https://91daf965-bb93-49bc-a242-201925347206.trycloudflare.com</code></p>
+                <p style="color: #9aa0a6; margin-top: 10px; font-size: 14px;">क्लाउडफ्लेयर लाइव लिंक:<br><code style="color: #a8c7fa; word-break: break-all;">https://91daf965-bb93-49bc-a242-201925347206.trycloudflare.com</code></p>
             </div>
         </div>
     </div>
 
 <script>
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+}
+
 function switchTab(tabName) {
     document.getElementById('generatorTab').style.display = 'none';
     document.getElementById('filesTab').style.display = 'none';
     document.getElementById('settingsTab').style.display = 'none';
-    
-    document.querySelectorAll('.menu-btn').forEach(btn => btn.classList.remove('active'));
 
     if (tabName === 'generator') {
         document.getElementById('generatorTab').style.display = 'block';
         document.getElementById('navTitle').innerText = 'एआई वीडियो जनरेटर पाइपलाइन';
-        event.target.classList.add('active');
     } else if (tabName === 'files') {
         document.getElementById('filesTab').style.display = 'block';
-        document.getElementById('navTitle').innerText = 'सेव की गई मीडिया फाइल्स';
-        event.target.classList.add('active');
+        document.getElementById('navTitle').innerText = 'सेव की गई फाइल्स';
     } else if (tabName === 'settings') {
         document.getElementById('settingsTab').style.display = 'block';
-        document.getElementById('navTitle').innerText = 'सर्वर और टनल सेटिंग्स';
-        event.target.classList.add('active');
+        document.getElementById('navTitle').innerText = 'सर्वर सेटिंग्स';
     }
+    toggleSidebar(); // क्लिक करते ही मेनू बंद हो जाएगा
 }
 
 async function generateVideo() {
@@ -235,7 +264,7 @@ async function generateVideo() {
     const videoPlayer = document.getElementById('videoPlayer');
 
     if (!prompt && !imageFile) {
-        alert("कृपया प्रॉम्प्ट या फोटो में से कोई एक चीज़ चुनें!");
+        alert("कृपया प्रॉम्प्ट या फोटो चुनें!");
         return;
     }
 
@@ -264,7 +293,7 @@ async function generateVideo() {
         }
     } catch (error) {
         console.error("Connection Error:", error);
-        alert("बैकएंड सर्वर से कनेक्शन नहीं हो पा रहा! चेक करें कि Termux में सर्वर और टनल चालू है या नहीं।");
+        alert("बैकएंड सर्वर से कनेक्शन नहीं हो पा रहा! Termux में सर्वर और टनल चेक करें।");
     } finally {
         statusLoading.style.display = "none";
     }
