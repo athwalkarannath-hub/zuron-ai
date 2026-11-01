@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zuron AI Studio - ChatGPT Style</title>
+    <title>Zuron AI Studio</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,165 +12,139 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #131314;
-            color: #e3e3e3;
+            background-color: #0f172a;
+            color: #f8fafc;
             display: flex;
             height: 100vh;
             overflow: hidden;
         }
         /* साइडबार मेनू */
         .sidebar {
-            width: 260px;
-            background: #1e1f20;
+            width: 280px;
+            background: #1e293b;
             display: flex;
             flex-direction: column;
             padding: 20px;
-            border-right: 1px solid #2b2d30;
+            border-right: 1px solid #334155;
+            transition: 0.3s ease;
         }
         .sidebar h2 {
             font-size: 18px;
-            color: #a8c7fa;
+            color: #38bdf8;
             margin-bottom: 20px;
         }
-        .new-chat-btn {
-            background: #282a2c;
-            color: #e3e3e3;
-            border: 1px solid #444746;
-            padding: 10px;
+        .menu-btn {
+            background: #0f172a;
+            color: #cbd5e1;
+            border: 1px solid #475569;
+            padding: 12px;
             border-radius: 8px;
-            text-align: center;
+            text-align: left;
             cursor: pointer;
             font-size: 14px;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             transition: 0.2s;
         }
-        .new-chat-btn:hover {
-            background: #333538;
-        }
-        .menu-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .menu-list li {
-            padding: 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            color: #c4c7c5;
-        }
-        .menu-list li:hover {
-            background: #282a2c;
+        .menu-btn:hover, .menu-btn.active {
+            background: #0284c7;
             color: #fff;
+            border-color: #0284c7;
         }
 
-        /* मुख्य चैट और स्टूडियो एरिया */
+        /* मुख्य वर्कस्पेस एरिया */
         .main-container {
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            background: #131314;
+            background: #0f172a;
             height: 100%;
         }
-        .chat-header {
+        .top-navbar {
             padding: 15px 25px;
-            border-bottom: 1px solid #2b2d30;
+            background: #1e293b;
+            border-bottom: 1px solid #334155;
             font-size: 18px;
-            font-weight: 650;
-            color: #e3e3e3;
-            background: #1e1f20;
-        }
-        .chat-body {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
+            font-weight: bold;
+            color: #38bdf8;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             gap: 15px;
         }
-        .message {
-            max-width: 80%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-size: 15px;
-            line-height: 1.5;
-        }
-        .user-msg {
-            background: #2b2d30;
-            align-self: flex-end;
-            color: #fff;
-        }
-        .ai-msg {
-            background: #1e1f20;
-            align-self: flex-start;
-            border: 1px solid #2b2d30;
-            color: #e3e3e3;
-        }
         
-        /* इनपुट बॉक्स एरिया (चैटजीपीटी स्टाइल नीचे) */
-        .chat-input-area {
-            padding: 20px;
-            background: #131314;
+        /* स्टेप-by-स्टेप कंटेंट सेक्शन */
+        .content-body {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
             display: flex;
             justify-content: center;
+            align-items: flex-start;
         }
-        .input-box-wrapper {
-            background: #1e1f20;
-            border: 1px solid #444746;
+        .step-card {
+            background: #1e293b;
+            padding: 30px;
             border-radius: 16px;
             width: 100%;
-            max-width: 800px;
-            padding: 12px 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            max-width: 600px;
+            border: 1px solid #334155;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
-        textarea {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-size: 15px;
-            resize: none;
-            outline: none;
-            height: 45px;
+        .step-card h3 {
+            color: #38bdf8;
+            margin-bottom: 20px;
+            font-size: 20px;
         }
-        .input-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid #2b2d30;
-            padding-top: 8px;
+        .form-group {
+            margin-bottom: 20px;
         }
-        .file-upload-label {
-            cursor: pointer;
-            color: #a8c7fa;
+        label {
+            display: block;
+            margin-bottom: 8px;
             font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            color: #94a3b8;
         }
-        .file-upload-label input {
-            display: none;
-        }
-        send-btn {
-            background: #a8c7fa;
-            color: #131314;
-            border: none;
-            padding: 8px 16px;
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 12px;
             border-radius: 8px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+        .action-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            transition: 0.3s;
         }
-        send-btn:hover {
+        .action-btn:hover {
             opacity: 0.9;
+        }
+        #statusLoading {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            color: #facc15;
+            font-weight: 500;
+        }
+        #videoPlayerContainer {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
         }
         video {
             width: 100%;
-            max-height: 300px;
-            border-radius: 8px;
+            max-height: 350px;
+            border-radius: 10px;
+            border: 1px solid #38bdf8;
             margin-top: 10px;
         }
     </style>
@@ -180,65 +154,99 @@
     <!-- साइडबार मेनू -->
     <div class="sidebar">
         <h2>✨ Zuron Studio</h2>
-        <div class="new-chat-btn" onclick="location.reload()">+ नई वीडियो चैट</div>
-        <ul class="menu-list">
-            <li>🎬 एआई वीडियो जनरेटर</li>
-            <li>📂 मेरी सेव की गई फाइल्स</li>
-            <li>⚙️ सर्वर सेटिंग्स</li>
-            <li>📊 ऑटोमेशन पाइपलाइन</li>
-        </ul>
+        <button class="menu-btn active" onclick="switchTab('generator')">🎬 स्टेप 1: एआई वीडियो जनरेटर</button>
+        <button class="menu-btn" onclick="switchTab('files')">📂 स्टेप 2: सेव की गई फाइल्स</button>
+        <button class="menu-btn" onclick="switchTab('settings')">⚙️ स्टेप 3: सर्वर सेटिंग्स</button>
     </div>
 
-    <!-- मुख्य चैट एरिया -->
+    <!-- मुख्य स्क्रीन -->
     <div class="main-container">
-        <div class="chat-header">Zuron AI Video Workspace</div>
-        
-        <div class="chat-body" id="chatBody">
-            <div class="message ai-msg">नमस्ते भाई! मैं आपका एआई स्टूडियो असिस्टेंट हूँ। नीचे प्रॉम्प्ट लिखिए या फोटो अपलोड कीजिए, मैं सीधे आपके Termux सर्वर से वीडियो जनरेट करके दूंगा।</div>
+        <div class="top-navbar">
+            <span id="navTitle">एआई वीडियो जनरेटर पाइपलाइन</span>
         </div>
-
-        <!-- चैटजीपीटी जैसा बॉटम इनपुट बॉक्स -->
-        <div class="chat-input-area">
-            <div class="input-box-wrapper">
-                <textarea id="promptInput" placeholder="यहाँ अपना वीडियो प्रॉम्प्ट लिखें..."></textarea>
-                <div class="input-actions">
-                    <label class="file-upload-label">
-                        📎 फोटो जोड़ें
-                        <input type="file" id="imageInput" accept="image/*">
-                    </label>
-                    <button onclick="generateVideo()" style="background: #a8c7fa; color: #131314; border: none; padding: 6px 14px; border-radius: 6px; font-weight: bold; cursor: pointer;">जनरेट करें 🚀</button>
+        
+        <div class="content-body">
+            <!-- स्टेप 1: वीडियो जनरेटर कार्ड -->
+            <div class="step-card" id="generatorTab">
+                <h3>वीडियो जनरेशन स्टूडियो</h3>
+                
+                <div class="form-group">
+                    <label>वीडियो का प्रॉम्प्ट (Prompt):</label>
+                    <input type="text" id="promptInput" placeholder="उदा: Cinematic landscape drone shot 9:16...">
                 </div>
+
+                <div class="form-group">
+                    <label>तस्वीर अपलोड करें (Optional):</label>
+                    <input type="file" id="imageInput" accept="image/*">
+                </div>
+
+                <button class="action-btn" onclick="generateVideo()">वीडियो जनरेट करना शुरू करें 🚀</button>
+
+                <div id="statusLoading">⏳ सर्वर वीडियो प्रोसेस कर रहा है, कृपया इंतज़ार करें...</div>
+
+                <div id="videoPlayerContainer">
+                    <label style="margin-top: 15px;">आपकी तैयार वीडियो:</label>
+                    <video id="videoPlayer" controls autoplay loop></video>
+                </div>
+            </div>
+
+            <!-- स्टेप 2: फाइल्स टैब (शुरुआत में खाली/साफ) -->
+            <div class="step-card" id="filesTab" style="display: none;">
+                <h3>सेव की गई मीडिया फाइल्स</h3>
+                <p style="color: #94a3b8; margin-top: 10px;">यहाँ आपके Termux के `uploads/` फोल्डर में सेव सभी फाइल्स दिखेंगी।</p>
+            </div>
+
+            <!-- स्टेप 3: सेटिंग्स टैब -->
+            <div class="step-card" id="settingsTab" style="display: none;">
+                <h3>सर्वर और टनल सेटिंग्स</h3>
+                <p style="color: #94a3b8; margin-top: 10px;">क्लाउडफ्लेयर लाइव लिंक: <br><code style="color: #38bdf8;">https://91daf965-bb93-49bc-a242-201925347206.trycloudflare.com</code></p>
             </div>
         </div>
     </div>
 
 <script>
+function switchTab(tabName) {
+    document.getElementById('generatorTab').style.display = 'none';
+    document.getElementById('filesTab').style.display = 'none';
+    document.getElementById('settingsTab').style.display = 'none';
+    
+    document.querySelectorAll('.menu-btn').forEach(btn => btn.classList.remove('active'));
+
+    if (tabName === 'generator') {
+        document.getElementById('generatorTab').style.display = 'block';
+        document.getElementById('navTitle').innerText = 'एआई वीडियो जनरेटर पाइपलाइन';
+        event.target.classList.add('active');
+    } else if (tabName === 'files') {
+        document.getElementById('filesTab').style.display = 'block';
+        document.getElementById('navTitle').innerText = 'सेव की गई मीडिया फाइल्स';
+        event.target.classList.add('active');
+    } else if (tabName === 'settings') {
+        document.getElementById('settingsTab').style.display = 'block';
+        document.getElementById('navTitle').innerText = 'सर्वर और टनल सेटिंग्स';
+        event.target.classList.add('active');
+    }
+}
+
 async function generateVideo() {
     const prompt = document.getElementById('promptInput').value.trim();
     const imageFile = document.getElementById('imageInput').files[0];
-    const chatBody = document.getElementById('chatBody');
+    const statusLoading = document.getElementById('statusLoading');
+    const videoPlayerContainer = document.getElementById('videoPlayerContainer');
+    const videoPlayer = document.getElementById('videoPlayer');
 
     if (!prompt && !imageFile) {
-        alert("कृपया कुछ लिखिए या तस्वीर चुनिए!");
+        alert("कृपया प्रॉम्प्ट या फोटो में से कोई एक चीज़ चुनें!");
         return;
     }
-
-    // यूजर का मैसेज चैट में दिखाएं
-    let userText = prompt ? prompt : "[इमेज फाइल]";
-    chatBody.innerHTML += `<div class="message user-msg">${userText}</div>`;
-    document.getElementById('promptInput').value = "";
-
-    // लोडिंग मैसेज दिखाएं
-    let loadingId = "loading_" + Date.now();
-    chatBody.innerHTML += `<div class="message ai-msg" id="${loadingId}">⏳ सर्वर वीडियो प्रोसेस कर रहा है, कृपया इंतज़ार करें...</div>`;
-    chatBody.scrollTop = chatBody.scrollHeight;
 
     const formData = new FormData();
     if (prompt) formData.append("prompt", prompt);
     if (imageFile) formData.append("image", imageFile);
 
+    statusLoading.style.display = "block";
+    videoPlayerContainer.style.display = "none";
+
     try {
-        // तुम्हारा क्लाउडफ्लेयर लाइव लिंक यहाँ सेट है
         const SERVER_URL = 'https://91daf965-bb93-49bc-a242-201925347206.trycloudflare.com';
         
         const response = await fetch(`${SERVER_URL}/generate`, {
@@ -247,24 +255,21 @@ async function generateVideo() {
         });
 
         const data = await response.json();
-        document.getElementById(loadingId).remove();
 
         if (response.ok) {
-            chatBody.innerHTML += `
-                <div class="message ai-msg">
-                    ✅ आपकी एआई वीडियो तैयार है:<br>
-                    <video src="${data.video_url}" controls autoplay loop></video>
-                </div>`;
+            videoPlayer.src = data.video_url;
+            videoPlayerContainer.style.display = "block";
         } else {
-            chatBody.innerHTML += `<div class="message ai-msg" style="color: #f87171;">एरर: ${data.detail || "वीडियो नहीं बन सकी"}</div>`;
+            alert("सर्वर एरर: " + (data.detail || "वीडियो जनरेट नहीं हो सकी"));
         }
     } catch (error) {
-        document.getElementById(loadingId).remove();
-        chatBody.innerHTML += `<div class="message ai-msg" style="color: #f87171;">कनेक्शन एरर! चेक करें कि Termux में सर्वर और टनल चालू है या नहीं।</div>`;
+        console.error("Connection Error:", error);
+        alert("बैकएंड सर्वर से कनेक्शन नहीं हो पा रहा! चेक करें कि Termux में सर्वर और टनल चालू है या नहीं।");
+    } finally {
+        statusLoading.style.display = "none";
     }
-    chatBody.scrollTop = chatBody.scrollHeight;
 }
 </script>
 
 </body>
-</html>
+    </html>
