@@ -14,26 +14,28 @@
         body {
             background-color: #131314;
             color: #e3e3e3;
-            display: flex;
             height: 100vh;
             overflow: hidden;
-        }
-        /* जेमिनी जैसा साइड मेनू ड्रावर */
-        .sidebar {
-            width: 260px;
-            background: #1e1f20;
             display: flex;
             flex-direction: column;
-            padding: 15px;
-            border-right: 1px solid #2b2d30;
-            position: fixed;
-            height: 100%;
-            top: 0;
-            left: -260px;
-            transition: 0.3s ease;
-            z-index: 1000;
         }
-        .sidebar.open {
+
+        /* जेमिनी जैसा साइडबार ड्रावर */
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background: #1e1f20;
+            border-right: 1px solid #2b2d30;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            transition: left 0.3s ease-in-out;
+            z-index: 1005;
+        }
+        #sidebar.active {
             left: 0;
         }
         .sidebar-header {
@@ -41,61 +43,48 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 25px;
-            padding-left: 5px;
         }
         .sidebar-header h2 {
-            font-size: 16px;
+            font-size: 18px;
             color: #a8c7fa;
         }
         .close-btn {
             background: none;
             border: none;
             color: #e3e3e3;
-            font-size: 22px;
+            font-size: 24px;
             cursor: pointer;
         }
         .menu-item {
-            padding: 12px 15px;
-            border-radius: 20px;
+            padding: 12px 16px;
+            border-radius: 24px;
             cursor: pointer;
             font-size: 14px;
             color: #c4c7c5;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             transition: 0.2s;
         }
         .menu-item:hover, .menu-item.active {
             background: #282a2c;
             color: #fff;
         }
-        .menu-item.active {
-            background: #004a77;
-            color: #c2e7ff;
-        }
 
-        /* बैकड्रॉप ब्लर जब मेनू खुले */
-        .overlay {
-            display: none;
+        /* बैकग्राउंड ब्लर ओवरले */
+        #overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 999;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            z-index: 1000;
         }
-        .overlay.active {
+        #overlay.active {
             display: block;
         }
 
-        /* मुख्य स्क्रीन लेआउट */
-        .main-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: #131314;
-            height: 100%;
-            width: 100%;
-        }
+        /* टॉप हेडर */
         .top-navbar {
             padding: 15px 20px;
             background: #131314;
@@ -108,7 +97,7 @@
             background: none;
             border: none;
             color: #e3e3e3;
-            font-size: 22px;
+            font-size: 24px;
             cursor: pointer;
         }
         .app-title {
@@ -117,7 +106,7 @@
             color: #e3e3e3;
         }
 
-        /* कंटेंट एरिया */
+        /* मुख्य बॉडी */
         .content-body {
             flex: 1;
             padding: 20px;
@@ -131,9 +120,9 @@
             padding: 24px;
             border-radius: 16px;
             width: 100%;
-            max-width: 550px;
+            max-width: 500px;
             border: 1px solid #2b2d30;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
         }
         .card h3 {
             color: #a8c7fa;
@@ -170,7 +159,6 @@
             font-weight: bold;
             cursor: pointer;
             margin-top: 5px;
-            transition: 0.2s;
         }
         .action-btn:hover {
             opacity: 0.9;
@@ -189,7 +177,7 @@
         }
         video {
             width: 100%;
-            max-height: 300px;
+            max-height: 280px;
             border-radius: 10px;
             border: 1px solid #a8c7fa;
             margin-top: 10px;
@@ -198,71 +186,74 @@
 </head>
 <body>
 
-    <!-- ओवरले (ब्लर बैकग्राउंड) -->
-    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+    <!-- ओवरले -->
+    <div id="overlay" onclick="closeMenu()"></div>
 
-    <!-- जेमिनी स्टाइल साइड मेनू -->
-    <div class="sidebar" id="sidebar">
+    <!-- साइडबार मेनू -->
+    <div id="sidebar">
         <div class="sidebar-header">
             <h2>✨ Zuron Studio</h2>
-            <button class="close-btn" onclick="toggleSidebar()">✕</button>
+            <button class="close-btn" onclick="closeMenu()">✕</button>
         </div>
         <div class="menu-item active" onclick="switchTab('generator')">🎬 एआई वीडियो जनरेटर</div>
         <div class="menu-item" onclick="switchTab('files')">📂 सेव की गई फाइल्स</div>
         <div class="menu-item" onclick="switchTab('settings')">⚙️ सर्वर सेटिंग्स</div>
     </div>
 
-    <!-- मुख्य स्क्रीन -->
-    <div class="main-container">
-        <!-- टॉप नेविगेशन बार -->
-        <div class="top-navbar">
-            <button class="hamburger" onclick="toggleSidebar()">☰</button>
-            <span class="app-title" id="navTitle">एआई वीडियो जनरेटर पाइपलाइन</span>
+    <!-- टॉप नेविगेशन -->
+    <div class="top-navbar">
+        <button class="hamburger" onclick="openMenu()">☰</button>
+        <span class="app-title" id="navTitle">एआई वीडियो जनरेटर पाइपलाइन</span>
+    </div>
+
+    <!-- कंटेंट एरिया -->
+    <div class="content-body">
+        <!-- जनरेटर टैब -->
+        <div class="card" id="generatorTab">
+            <h3>वीडियो जनरेशन स्टूडियो</h3>
+            
+            <div class="form-group">
+                <label>वीडियो का प्रॉम्प्ट (Prompt):</label>
+                <input type="text" id="promptInput" placeholder="उदा: Cinematic sunset drone shot 9:16">
+            </div>
+
+            <div class="form-group">
+                <label>तस्वीर अपलोड करें (Optional):</label>
+                <input type="file" id="imageInput" accept="image/*">
+            </div>
+
+            <button class="action-btn" onclick="generateVideo()">वीडियो जनरेट करना शुरू करें 🚀</button>
+
+            <div id="statusLoading">⏳ सर्वर वीडियो प्रोसेस कर रहा है, कृपया इंतज़ार करें...</div>
+
+            <div id="videoPlayerContainer">
+                <label>आपकी तैयार वीडियो:</label>
+                <video id="videoPlayer" controls autoplay loop></video>
+            </div>
         </div>
-        
-        <div class="content-body">
-            <!-- जनरेटर टैब -->
-            <div class="card" id="generatorTab">
-                <h3>वीडियो जनरेशन स्टूडियो</h3>
-                
-                <div class="form-group">
-                    <label>वीडियो का प्रॉम्प्ट (Prompt):</label>
-                    <input type="text" id="promptInput" placeholder="उदा: Cinematic sunset drone shot 9:16">
-                </div>
 
-                <div class="form-group">
-                    <label>तस्वीर अपलोड करें (Optional):</label>
-                    <input type="file" id="imageInput" accept="image/*">
-                </div>
+        <!-- फाइल्स टैब -->
+        <div class="card" id="filesTab" style="display: none;">
+            <h3>सेव की गई मीडिया फाइल्स</h3>
+            <p style="color: #9aa0a6; margin-top: 10px; font-size: 14px;">Termux के uploads/ फोल्डर की फाइल्स यहाँ दिखेंगी।</p>
+        </div>
 
-                <button class="action-btn" onclick="generateVideo()">वीडियो जनरेट करना शुरू करें 🚀</button>
-
-                <div id="statusLoading">⏳ सर्वर वीडियो प्रोसेस कर रहा है, कृपया इंतज़ार करें...</div>
-
-                <div id="videoPlayerContainer">
-                    <label>आपकी तैयार वीडियो:</label>
-                    <video id="videoPlayer" controls autoplay loop></video>
-                </div>
-            </div>
-
-            <!-- फाइल्स टैब -->
-            <div class="card" id="filesTab" style="display: none;">
-                <h3>सेव की गई मीडिया फाइल्स</h3>
-                <p style="color: #9aa0a6; margin-top: 10px; font-size: 14px;">Termux के uploads/ फोल्डर की फाइल्स यहाँ दिखेंगी।</p>
-            </div>
-
-            <!-- सेटिंग्स टैब -->
-            <div class="card" id="settingsTab" style="display: none;">
-                <h3>सर्वर और टनल सेटिंग्स</h3>
-                <p style="color: #9aa0a6; margin-top: 10px; font-size: 14px;">क्लाउडफ्लेयर लाइव लिंक:<br><code style="color: #a8c7fa; word-break: break-all;">https://91daf965-bb93-49bc-a242-201925347206.trycloudflare.com</code></p>
-            </div>
+        <!-- सेटिंग्स टैब -->
+        <div class="card" id="settingsTab" style="display: none;">
+            <h3>सर्वर और टनल सेटिंग्स</h3>
+            <p style="color: #9aa0a6; margin-top: 10px; font-size: 14px;">क्लाउडफ्लेयर लाइव लिंक:<br><code style="color: #a8c7fa; word-break: break-all;">https://91daf965-bb93-49bc-a242-201925347206.trycloudflare.com</code></p>
         </div>
     </div>
 
 <script>
-function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
-    document.getElementById('overlay').classList.toggle('active');
+function openMenu() {
+    document.getElementById('sidebar').classList.add('active');
+    document.getElementById('overlay').classList.add('active');
+}
+
+function closeMenu() {
+    document.getElementById('sidebar').classList.remove('active');
+    document.getElementById('overlay').classList.remove('active');
 }
 
 function switchTab(tabName) {
@@ -280,7 +271,7 @@ function switchTab(tabName) {
         document.getElementById('settingsTab').style.display = 'block';
         document.getElementById('navTitle').innerText = 'सर्वर सेटिंग्स';
     }
-    toggleSidebar();
+    closeMenu();
 }
 
 async function generateVideo() {
@@ -328,4 +319,4 @@ async function generateVideo() {
 </script>
 
 </body>
-</html>
+                    </html>
