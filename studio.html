@@ -12,88 +12,213 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #131314;
-            color: #e3e3e3;
+            background-color: #ffffff;
+            color: #1f1f1f;
             height: 100vh;
-            overflow: hidden;
-            display: flex;
-        }
-
-        /* जेमिनी जैसा साइडबार - हमेशा सामने या टॉगल होने पर साइड में दिखने वाला */
-        #sidebar {
-            width: 260px;
-            background: #1e1f20;
-            border-right: 1px solid #2b2d30;
             display: flex;
             flex-direction: column;
-            padding: 15px;
-            height: 100%;
-            transition: transform 0.3s ease;
-            position: relative;
-            z-index: 100;
-        }
-        /* मोबाइल पर शुरू में साइडबार छिपा रहेगा, ☰ दबाने पर सामने आएगा */
-        @media (max-width: 768px) {
-            #sidebar {
-                position: fixed;
-                left: -260px;
-                top: 0;
-                height: 100%;
-                z-index: 1005;
-            }
-            #sidebar.active {
-                left: 0;
-            }
+            justify-content: space-between;
+            overflow: hidden;
         }
 
+        /* टॉप नेविगेशन बार (जेमिनी स्टाइल) */
+        .top-navbar {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .hamburger {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #1f1f1f;
+        }
+        .app-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1f1f1f;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .upgrade-btn {
+            background: #c2e7ff;
+            color: #001d35;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: #7c3aed;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* मुख्य ग्रीटिंग और सेंटर एरिया */
+        .hero-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+        .sparkle-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        .hero-section h1 {
+            font-size: 28px;
+            font-weight: 400;
+            color: #1f1f1f;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #4285f4, #9333ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* सुझाव वाले कार्ड्स (Suggestions) */
+        .suggestions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+        .suggestion-card {
+            background: #f0f4f9;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #1f1f1f;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .suggestion-card:hover {
+            background: #e2e8f0;
+        }
+
+        /* नीचे चैटजीपीटी/जेमिनी जैसा फ्लोटिंग इनपुट बार */
+        .input-container {
+            padding: 15px 20px 25px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .floating-input-box {
+            background: #f0f4f9;
+            border-radius: 30px;
+            padding: 10px 15px;
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .add-btn {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #5f6368;
+        }
+        .floating-input-box input[type="text"] {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            color: #1f1f1f;
+        }
+        .floating-input-box input[type="file"] {
+            display: none;
+        }
+        .file-label {
+            cursor: pointer;
+            font-size: 18px;
+            color: #5f6368;
+        }
+        .send-action-btn {
+            background: #1f1f1f;
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* साइड मेनू ड्रावर */
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 280px;
+            height: 100%;
+            background: #f8f9fa;
+            border-right: 1px solid #e1e3e6;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            transition: left 0.3s ease;
+            z-index: 1005;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+        #sidebar.active {
+            left: 0;
+        }
         .sidebar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
-        .sidebar-header h2 {
-            font-size: 16px;
-            color: #a8c7fa;
-        }
-        .close-btn {
-            background: none;
-            border: none;
-            color: #e3e3e3;
-            font-size: 20px;
-            cursor: pointer;
-            display: none;
-        }
-        @media (max-width: 768px) {
-            .close-btn { display: block; }
-        }
-
         .menu-item {
-            padding: 12px 15px;
+            padding: 12px 16px;
             border-radius: 20px;
             cursor: pointer;
             font-size: 14px;
-            color: #c4c7c5;
+            color: #3c4043;
             margin-bottom: 6px;
             transition: 0.2s;
         }
         .menu-item:hover, .menu-item.active {
-            background: #282a2c;
-            color: #fff;
+            background: #e8eaed;
+            color: #1f1f1f;
         }
-        .menu-item.active {
-            background: #004a77;
-            color: #c2e7ff;
-        }
-
-        /* बैकग्राउंड ओवरले मोबाइल के लिए */
         #overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.3);
             display: none;
             z-index: 1000;
         }
@@ -101,111 +226,24 @@
             display: block;
         }
 
-        /* मुख्य चैट/स्टूडियो एरिया */
-        .main-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: #131314;
-            height: 100%;
-            overflow: hidden;
-        }
-        .top-navbar {
-            padding: 15px 20px;
-            background: #131314;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-bottom: 1px solid #2b2d30;
-        }
-        .hamburger {
-            background: none;
-            border: none;
-            color: #e3e3e3;
-            font-size: 22px;
-            cursor: pointer;
-        }
-        .app-title {
-            font-size: 16px;
-            font-weight: 500;
-            color: #e3e3e3;
-        }
-
-        /* कंटेंट बॉडी - चैटजीपीटी जैसा सामने दिखने वाला लुक */
-        .content-body {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .card {
-            background: #1e1f20;
-            padding: 24px;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 600px;
-            border: 1px solid #2b2d30;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-        }
-        .card h3 {
-            color: #a8c7fa;
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-        .form-group {
-            margin-bottom: 18px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 13px;
-            color: #9aa0a6;
-        }
-        input[type="text"], input[type="file"] {
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid #444746;
-            background: #131314;
-            color: #fff;
-            font-size: 14px;
-            outline: none;
-        }
-        .action-btn {
-            width: 100%;
-            padding: 14px;
-            background: #a8c7fa;
-            color: #131314;
-            border: none;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 5px;
-        }
-        .action-btn:hover {
-            opacity: 0.9;
-        }
+        /* लोडिंग और वीडियो प्लेयर मोडल/सेक्शन */
         #statusLoading {
             display: none;
-            text-align: center;
-            margin-top: 15px;
-            color: #fde047;
+            color: #b45309;
+            font-weight: 500;
+            margin-top: 10px;
             font-size: 14px;
         }
         #videoPlayerContainer {
             display: none;
-            margin-top: 20px;
+            margin-top: 15px;
             text-align: center;
         }
         video {
             width: 100%;
-            max-height: 280px;
-            border-radius: 10px;
-            border: 1px solid #a8c7fa;
-            margin-top: 10px;
+            max-height: 250px;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
         }
     </style>
 </head>
@@ -214,71 +252,75 @@
     <!-- ओवरले -->
     <div id="overlay" onclick="toggleSidebar()"></div>
 
-    <!-- साइडबार मेनू (जेमिनी स्टाइल) -->
+    <!-- साइड मेनू ड्रावर -->
     <div id="sidebar">
         <div class="sidebar-header">
             <h2>✨ Zuron Studio</h2>
-            <button class="close-btn" onclick="toggleSidebar()">✕</button>
+            <button class="hamburger" onclick="toggleSidebar()">✕</button>
         </div>
         <div class="menu-item active" onclick="switchTab('generator')">🎬 एआई वीडियो जनरेटर</div>
         <div class="menu-item" onclick="switchTab('files')">📂 सेव की गई फाइल्स</div>
         <div class="menu-item" onclick="switchTab('settings')">⚙️ सर्वर सेटिंग्स</div>
     </div>
 
-    <!-- मुख्य स्क्रीन -->
-    <div class="main-container">
-        <!-- टॉप नेविगेशन -->
-        <div class="top-navbar">
+    <!-- टॉप नेविगेशन बार -->
+    <div class="top-navbar">
+        <div class="nav-left">
             <button class="hamburger" onclick="toggleSidebar()">☰</button>
-            <span class="app-title" id="navTitle">एआई वीडियो जनरेटर पाइपलाइन</span>
+            <span class="app-title">Zuron Studio ▾</span>
+        </div>
+        <div class="nav-right">
+            <button class="upgrade-btn">Upgrade</button>
+            <div class="user-avatar">K</div>
+        </div>
+    </div>
+
+    <!-- मुख्य ग्रीटिंग और सेंटर एरिया -->
+    <div class="hero-section" id="generatorTab">
+        <div class="sparkle-icon">✨</div>
+        <h1>Hi Karan Nath, what's the move?</h1>
+
+        <!-- सुझाव वाले विकल्प -->
+        <div class="suggestions">
+            <div class="suggestion-card" onclick="setPrompt('Cyberpunk city futuristic drone shot 9:16')">🎬 Cyberpunk city futuristic drone shot 9:16</div>
+            <div class="suggestion-card" onclick="setPrompt('Cinematic nature landscape slow motion 4k')">🌿 Cinematic nature landscape slow motion 4k</div>
         </div>
 
-        <!-- कंटेंट एरिया -->
-        <div class="content-body">
-            <!-- जनरेटर टैब -->
-            <div class="card" id="generatorTab">
-                <h3>वीडियो जनरेशन स्टूडियो</h3>
-                
-                <div class="form-group">
-                    <label>वीडियो का प्रॉम्प्ट (Prompt):</label>
-                    <input type="text" id="promptInput" placeholder="उदा: Cinematic sunset drone shot 9:16">
-                </div>
+        <div id="statusLoading">⏳ सर्वर वीडियो प्रोसेस कर रहा है, कृपया इंतज़ार करें...</div>
 
-                <div class="form-group">
-                    <label>तस्वीर अपलोड करें (Optional):</label>
-                    <input type="file" id="imageInput" accept="image/*">
-                </div>
+        <div id="videoPlayerContainer">
+            <video id="videoPlayer" controls autoplay loop></video>
+        </div>
+    </div>
 
-                <button class="action-btn" onclick="generateVideo()">वीडियो जनरेट करना शुरू करें 🚀</button>
+    <!-- फाइल्स टैब -->
+    <div class="hero-section" id="filesTab" style="display: none;">
+        <h2>सेव की गई मीडिया फाइल्स</h2>
+        <p style="color: #5f6368; margin-top: 10px;">Termux के uploads/ फोल्डर की फाइल्स यहाँ दिखेंगी।</p>
+    </div>
 
-                <div id="statusLoading">⏳ सर्वर वीडियो प्रोसेस कर रहा है, कृपया इंतज़ार करें...</div>
+    <!-- सेटिंग्स टैब -->
+    <div class="hero-section" id="settingsTab" style="display: none;">
+        <h2>सर्वर और टनल सेटिंग्स</h2>
+        <p style="color: #5f6368; margin-top: 10px;">क्लाउडफ्लेयर लाइव लिंक:<br><code style="color: #1a73e8; word-break: break-all;">https://91daf965-bb93-49bc-a242-201925347206.trycloudflare.com</code></p>
+    </div>
 
-                <div id="videoPlayerContainer">
-                    <label>आपकी तैयार वीडियो:</label>
-                    <video id="videoPlayer" controls autoplay loop></video>
-                </div>
-            </div>
-
-            <!-- फाइल्स टैब -->
-            <div class="card" id="filesTab" style="display: none;">
-                <h3>सेव की गई मीडिया फाइल्स</h3>
-                <p style="color: #9aa0a6; margin-top: 10px; font-size: 14px;">Termux के uploads/ फोल्डर की फाइल्स यहाँ दिखेंगी।</p>
-            </div>
-
-            <!-- सेटिंग्स टैब -->
-            <div class="card" id="settingsTab" style="display: none;">
-                <h3>सर्वर और टनल सेटिंग्स</h3>
-                <p style="color: #9aa0a6; margin-top: 10px; font-size: 14px;">क्लाउडफ्लेयर लाइव लिंक:<br><code style="color: #a8c7fa; word-break: break-all;">https://91daf965-bb93-49bc-a242-201925347206.trycloudflare.com</code></p>
-            </div>
+    <!-- नीचे फ्लोटिंग चैट इनपुट बॉक्स -->
+    <div class="input-container">
+        <div class="floating-input-box">
+            <label class="file-label" title="तस्वीर जोड़ें">
+                +
+                <input type="file" id="imageInput" accept="image/*" onchange="fileSelected()">
+            </label>
+            <input type="text" id="promptInput" placeholder="Try video prompt or upload image...">
+            <button class="send-action-btn" onclick="generateVideo()">↑</button>
         </div>
     </div>
 
 <script>
 function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    sidebar.classList.toggle('active');
-    overlay.classList.toggle('active');
+    document.getElementById('sidebar').classList.toggle('active');
+    document.getElementById('overlay').classList.toggle('active');
 }
 
 function switchTab(tabName) {
@@ -287,17 +329,23 @@ function switchTab(tabName) {
     document.getElementById('settingsTab').style.display = 'none';
 
     if (tabName === 'generator') {
-        document.getElementById('generatorTab').style.display = 'block';
-        document.getElementById('navTitle').innerText = 'एआई वीडियो जनरेटर पाइपलाइन';
+        document.getElementById('generatorTab').style.display = 'flex';
     } else if (tabName === 'files') {
-        document.getElementById('filesTab').style.display = 'block';
-        document.getElementById('navTitle').innerText = 'सेव की गई फाइल्स';
+        document.getElementById('filesTab').style.display = 'flex';
     } else if (tabName === 'settings') {
-        document.getElementById('settingsTab').style.display = 'block';
-        document.getElementById('navTitle').innerText = 'सर्वर सेटिंग्स';
+        document.getElementById('settingsTab').style.display = 'flex';
     }
-    if (window.innerWidth <= 768) {
-        toggleSidebar();
+    toggleSidebar();
+}
+
+function setPrompt(text) {
+    document.getElementById('promptInput').value = text;
+}
+
+function fileSelected() {
+    const file = document.getElementById('imageInput').files[0];
+    if(file) {
+        document.getElementById('promptInput').placeholder = "Image selected: " + file.name;
     }
 }
 
@@ -309,7 +357,7 @@ async function generateVideo() {
     const videoPlayer = document.getElementById('videoPlayer');
 
     if (!prompt && !imageFile) {
-        alert("कृपया प्रॉम्प्ट या फोटो चुनें!");
+        alert("कृपया प्रॉम्प्ट लिखें या फोटो चुनें!");
         return;
     }
 
