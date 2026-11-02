@@ -21,12 +21,14 @@
             overflow: hidden;
         }
 
-        /* टॉप नेविगेशन बार */
+        /* टॉप नेविगेशन बार (Zuron Studio नाम के साथ) */
         .top-navbar {
             padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: #ffffff;
+            z-index: 10;
         }
         .nav-left {
             display: flex;
@@ -121,21 +123,22 @@
             background: #e2e8f0;
         }
 
-        /* एकदम जेमिनी ऐप जैसा गोल और परफेक्ट फ्लोटिंग सर्च बार */
+        /* नीचे वाला सर्च बार (अब बिल्कुल सही ऊपर सेट किया गया है ताकि कटे नहीं) */
         .input-container {
             padding: 10px 20px 25px 20px;
             display: flex;
             justify-content: center;
+            background: #ffffff;
         }
         .floating-input-box {
             background: #f0f4f9;
             border-radius: 35px;
-            padding: 12px 18px;
+            padding: 10px 18px;
             width: 100%;
             max-width: 650px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             border: 1px solid #e1e3e6;
         }
@@ -144,7 +147,7 @@
             background: transparent;
             border: none;
             outline: none;
-            font-size: 16px;
+            font-size: 15px;
             color: #1f1f1f;
         }
         .floating-input-box input[type="file"] {
@@ -264,11 +267,11 @@
         <div class="menu-item" onclick="switchTab('settings')">⚙️ सर्वर सेटिंग्स</div>
     </div>
 
-    <!-- टॉप नेविगेशन बार -->
+    <!-- टॉप नेविगेशन बार (Zuron Studio के साथ) -->
     <div class="top-navbar">
         <div class="nav-left">
             <button class="hamburger" onclick="toggleSidebar()">☰</button>
-            <span class="app-title">Gemini Auto ▾</span>
+            <span class="app-title">Zuron Studio ▾</span>
         </div>
         <div class="nav-right">
             <button class="upgrade-btn">Upgrade</button>
@@ -306,14 +309,14 @@
         <p style="color: #5f6368; margin-top: 10px;">क्लाउडफ्लेयर लाइव लिंक:<br><code style="color: #1a73e8; word-break: break-all;">https://91daf965-bb93-49bc-a242-201925347206.trycloudflare.com</code></p>
     </div>
 
-    <!-- नीचे जेमिनी स्टाइल फ्लोटिंग सर्च बार -->
+    <!-- नीचे जेमिनी स्टाइल फ्लोटिंग सर्च बार (सही पोजीशन पर सेट) -->
     <div class="input-container">
         <div class="floating-input-box">
             <label class="file-label" title="तस्वीर जोड़ें">
                 +
                 <input type="file" id="imageInput" accept="image/*" onchange="fileSelected()">
             </label>
-            <input type="text" id="promptInput" placeholder="Ask Gemini...">
+            <input type="text" id="promptInput" placeholder="Ask Zuron Studio...">
             <button class="send-action-btn" onclick="generateVideo()">↑</button>
         </div>
     </div>
