@@ -75,7 +75,7 @@
             font-size: 14px;
         }
 
-        /* मुख्य कंटेंट एरिया - सब कुछ ऊपर और बीच में सेट */
+        /* मुख्य कंटेंट एरिया */
         .main-content {
             flex: 1;
             display: flex;
@@ -102,7 +102,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* सर्च बार को अब ऊपर ग्रीटिंग के ठीक नीचे ले आए हैं ताकि बिल्कुल न कटे */
+        /* सर्च बार */
         .floating-input-box {
             background: #f0f4f9;
             border-radius: 35px;
@@ -283,7 +283,7 @@
         <div class="sparkle-icon">✨</div>
         <h1>Hi Karan Nath, what's the move?</h1>
 
-        <!-- सर्च बार अब ग्रीटिंग के तुरंत नीचे है, जो कभी नहीं कटेगा -->
+        <!-- सर्च बार -->
         <div class="floating-input-box">
             <label class="file-label" title="तस्वीर जोड़ें">
                 +
@@ -315,7 +315,7 @@
     <!-- सेटिंग्स टैब -->
     <div class="main-content" id="settingsTab" style="display: none;">
         <h2>सर्वर और टनल सेटिंग्स</h2>
-        <p style="color: #5f6368; margin-top: 10px;">क्लाउडफ्लेयर लाइव लिंक:<br><code style="color: #1a73e8; word-break: break-all;">https://91daf965-bb93-49bc-a242-201925347206.trycloudflare.com</code></p>
+        <p style="color: #5f6368; margin-top: 10px;">क्लाउडफ्लेयर लाइव लिंक:<br><code style="color: #1a73e8; word-break: break-all;">https://lisa-ala-picking-aged.trycloudflare.com</code></p>
     </div>
 
 <script>
@@ -370,7 +370,7 @@ async function generateVideo() {
     videoPlayerContainer.style.display = "none";
 
     try {
-        const SERVER_URL = 'https://91daf965-bb93-49bc-a242-201925347206.trycloudflare.com';
+        const SERVER_URL = 'https://lisa-ala-picking-aged.trycloudflare.com';
         
         const response = await fetch(`${SERVER_URL}/generate`, {
             method: 'POST',
@@ -395,4 +395,4 @@ async function generateVideo() {
 </script>
 
 </body>
-                </html>
+</html>
