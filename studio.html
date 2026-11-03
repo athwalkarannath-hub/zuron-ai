@@ -17,8 +17,7 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            overflow: hidden;
+            overflow-x: hidden;
             touch-action: manipulation;
         }
 
@@ -29,7 +28,7 @@
             justify-content: space-between;
             align-items: center;
             background: #ffffff;
-            z-index: 10;
+            border-bottom: 1px solid #f0f0f0;
         }
         .nav-left {
             display: flex;
@@ -76,73 +75,46 @@
             font-size: 14px;
         }
 
-        /* मुख्य ग्रीटिंग और सेंटर एरिया */
-        .hero-section {
+        /* मुख्य कंटेंट एरिया - सब कुछ ऊपर और बीच में सेट */
+        .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            padding: 10px 20px;
-            text-align: center;
+            padding: 20px;
             overflow-y: auto;
+            text-align: center;
         }
+
         .sparkle-icon {
             font-size: 28px;
-            margin-bottom: 10px;
+            margin-top: 15px;
+            margin-bottom: 8px;
         }
-        .hero-section h1 {
+
+        h1 {
             font-size: 24px;
             font-weight: 400;
             color: #1f1f1f;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             background: linear-gradient(135deg, #4285f4, #9333ea);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* सुझाव वाले कार्ड्स */
-        .suggestions {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            width: 100%;
-            max-width: 500px;
-            margin-bottom: 15px;
-        }
-        .suggestion-card {
-            background: #f0f4f9;
-            padding: 10px 16px;
-            border-radius: 12px;
-            font-size: 13px;
-            color: #1f1f1f;
-            text-align: left;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .suggestion-card:hover {
-            background: #e2e8f0;
-        }
-
-        /* सर्च बार को अब थोड़ा और ऊपर उठा दिया है ताकि स्क्रीन पर बिल्कुल साफ दिखे */
-        .input-container {
-            padding: 10px 20px 20px 20px;
-            display: flex;
-            justify-content: center;
-            background: #ffffff;
-            margin-bottom: 15px;
-        }
+        /* सर्च बार को अब ऊपर ग्रीटिंग के ठीक नीचे ले आए हैं ताकि बिल्कुल न कटे */
         .floating-input-box {
             background: #f0f4f9;
             border-radius: 35px;
             padding: 12px 18px;
             width: 100%;
-            max-width: 650px;
+            max-width: 600px;
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             border: 1px solid #e1e3e6;
+            margin-bottom: 20px;
         }
         .floating-input-box input[type="text"] {
             flex: 1;
@@ -178,6 +150,29 @@
         }
         .send-action-btn:hover {
             background: #f1f3f4;
+        }
+
+        /* सुझाव वाले कार्ड्स */
+        .suggestions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+        .suggestion-card {
+            background: #f0f4f9;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #1f1f1f;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .suggestion-card:hover {
+            background: #e2e8f0;
         }
 
         /* साइड मेनू ड्रावर */
@@ -237,17 +232,19 @@
             display: none;
             color: #b45309;
             font-weight: 500;
-            margin-top: 10px;
+            margin-top: 15px;
             font-size: 14px;
         }
         #videoPlayerContainer {
             display: none;
             margin-top: 15px;
             text-align: center;
+            width: 100%;
+            max-width: 600px;
         }
         video {
             width: 100%;
-            max-height: 200px;
+            max-height: 250px;
             border-radius: 12px;
             border: 1px solid #cbd5e1;
         }
@@ -281,10 +278,20 @@
         </div>
     </div>
 
-    <!-- मुख्य ग्रीटिंग और सेंटर एरिया -->
-    <div class="hero-section" id="generatorTab">
+    <!-- मुख्य कंटेंट एरिया -->
+    <div class="main-content" id="generatorTab">
         <div class="sparkle-icon">✨</div>
         <h1>Hi Karan Nath, what's the move?</h1>
+
+        <!-- सर्च बार अब ग्रीटिंग के तुरंत नीचे है, जो कभी नहीं कटेगा -->
+        <div class="floating-input-box">
+            <label class="file-label" title="तस्वीर जोड़ें">
+                +
+                <input type="file" id="imageInput" accept="image/*" onchange="fileSelected()">
+            </label>
+            <input type="text" id="promptInput" placeholder="Ask Zuron Studio...">
+            <button class="send-action-btn" onclick="generateVideo()">↑</button>
+        </div>
 
         <!-- सुझाव वाले विकल्प -->
         <div class="suggestions">
@@ -300,27 +307,15 @@
     </div>
 
     <!-- फाइल्स टैब -->
-    <div class="hero-section" id="filesTab" style="display: none;">
+    <div class="main-content" id="filesTab" style="display: none;">
         <h2>सेव की गई मीडिया फाइल्स</h2>
         <p style="color: #5f6368; margin-top: 10px;">Termux के uploads/ फोल्डर की फाइल्स यहाँ दिखेंगी।</p>
     </div>
 
     <!-- सेटिंग्स टैब -->
-    <div class="hero-section" id="settingsTab" style="display: none;">
+    <div class="main-content" id="settingsTab" style="display: none;">
         <h2>सर्वर और टनल सेटिंग्स</h2>
         <p style="color: #5f6368; margin-top: 10px;">क्लाउडफ्लेयर लाइव लिंक:<br><code style="color: #1a73e8; word-break: break-all;">https://91daf965-bb93-49bc-a242-201925347206.trycloudflare.com</code></p>
-    </div>
-
-    <!-- नीचे सर्च बार (अब और ऊपर उठा दिया गया है) -->
-    <div class="input-container">
-        <div class="floating-input-box">
-            <label class="file-label" title="तस्वीर जोड़ें">
-                +
-                <input type="file" id="imageInput" accept="image/*" onchange="fileSelected()">
-            </label>
-            <input type="text" id="promptInput" placeholder="Ask Zuron Studio...">
-            <button class="send-action-btn" onclick="generateVideo()">↑</button>
-        </div>
     </div>
 
 <script>
